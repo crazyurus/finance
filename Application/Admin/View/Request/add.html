@@ -1,0 +1,79 @@
+<div class="pageContent">
+    <form method="post" action="{:U('admin/request/change')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layoutH="58">
+            <neq name="type" value="fin">
+                <eq name="Think.get.id" value="">
+                    <input type="hidden" name="order_id" value="" />
+                <else />
+                    <p>
+                        <label>订单ID：</label>{$Think.get.id}
+                        <input type="hidden" name="order_id" value="{$Think.get.id}" />
+                    </p>
+                </eq>
+            </neq>
+            <p>
+                <label>科目：</label>
+                <input type="text" id="subject_name" class="required input" value="{$data.acct_id}" readonly />
+            </p>
+            <div style="background: rgb(255, 255, 255); border-style: solid; border-width: 1px; border-color:#9eabb3 #d5dbdf #d5dbdf #9eabb3; position: fixed; display: none; z-index: 999" id="subject_choose">
+                <ul class="tree">
+                    {$tree}
+                </ul>
+            </div>
+            <input type="hidden" name="subject_code" value="{$data.subject_code}" />
+            <eq name="type" value="fin">
+                <p>
+                    <label>收支：</label>
+                    <input type="radio" name="settle_flag" value="1" class="required" />&nbsp;收&nbsp;&nbsp;<input type="radio" name="settle_flag" value="-1" class="required" />&nbsp;支
+                </p>
+                <else />
+                <input type="hidden" name="settle_flag" value="{$flag}" />
+            </eq>
+            <neq name="flag" value="-1">
+                <p>
+                    <label>账户：</label>
+                    <select name="acct_id" class="required combox">
+                        <volist name="select" id="item">
+                            <option value="{$item.acct_id}">{$item.acct_name}</option>
+                        </volist>
+                    </select>
+                </p>
+            </neq>
+            <p>
+                <label>金额：</label>
+                <input type="text" name="action_amount" class="required input number" value="{$data.action_amount}" />
+            </p>
+            <p>
+                <label>备注：</label>
+                <input type="text" name="seq_mark" class="input" value="{$data.seq_mark}" />
+            </p>
+            <div class="divider"></div>
+            <p><b>注意：</b>金额栏请填写正值，不代表收支情况。</p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#subject_name").click(function () {
+            var obj = $("#subject_choose");
+            obj.css("left", $(this).offset().left);
+            obj.css("top", $(this).offset().top + 19);
+            obj.width($(this).width() + 4);
+            $("#subject_choose").slideDown("fast");
+        });
+    });
+
+    function subjectBack(data) {
+        $("#subject_name").val(data.subject_name);
+        $("input[name=subject_code]").val(data.subject_no);
+        $("#subject_choose").slideUp("fast");
+    }
+</script>

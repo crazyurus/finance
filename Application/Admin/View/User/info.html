@@ -1,0 +1,51 @@
+<eq name="type" value="true">
+    <h2 class="contentTitle">查看{$data.oper_name}的信息</h2>
+    <else />
+    <h2 class="contentTitle">查看我的信息</h2>
+</eq>
+<div class="pageContent">
+    <div class="pageFormContent nowrap" layoutH="97">
+        <dl>
+            <dt>工号：</dt>
+            <dd>{$data.oper_no|trans_oper_no}</dd>
+        </dl>
+        <dl>
+            <dt>姓名：</dt>
+            <dd>{$data.oper_name}</dd>
+        </dl>
+        <dl>
+            <dt>部门：</dt>
+            <dd>{$data.oper_dept_no|trans_dept_no}</dd>
+        </dl>
+        <dl>
+            <dt>岗位：</dt>
+            <dd>{$data.oper_post_no|trans_post_no}</dd>
+        </dl>
+        <dl>
+            <dt>状态：</dt>
+            <dd>{$data.oper_stat|trans_oper_stat}</dd>
+        </dl>
+        <dl>
+            <dt>手机：</dt>
+            <dd>{$data.oper_mobile}</dd>
+        </dl>
+        <dl>
+            <dt>身份证号：</dt>
+            <dd>{$data.oper_cid}</dd>
+        </dl>
+        <dl>
+            <dt>生日：</dt>
+            <dd>{$data.oper_bth}</dd>
+        </dl>
+        <dl>
+            <dt>个人说明：</dt>
+            <dd>{$data.oper_info}</dd>
+        </dl>
+        <eq name="type" value="true">
+            <dl>
+                <dt>备注：</dt>
+                <dd>{$data.oper_mark}</dd>
+            </dl>
+        </eq>
+    </div>
+</div>

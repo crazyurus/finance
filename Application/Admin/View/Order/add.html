@@ -1,0 +1,114 @@
+<div class="pageContent">
+    <form method="post" action="{:U('admin/order/change')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layouth="58">
+            <fieldset>
+                <legend>订单信息</legend>
+                <eq name="btnText" value="修改">
+                    <p>
+                        <label>订单编号：</label>
+                        <input type="text" name="ord_id" class="input" value="{$data.ord_id}" readonly />
+                    </p>
+                </eq>
+                <p>
+                    <label>订单名称：</label>
+                    <input type="text" name="order_name" class="required input" value="{$data.order_name}" />
+                </p>
+                <p>
+                    <label>供应商名称：</label>
+                    <input type="text" name="provider_name" class="required input" value="{$data.provider_name}" />
+                </p>
+                <p>
+                    <label>订单线路出境：</label>
+                    <select name="order_area" class="required combox">
+                        <volist name="area" id="item">
+                            <option value="{$item.para_id}"<?php if($item['para_id']==$data['order_area']) echo ' selected'; ?>>{$item.para_name}</option>
+                        </volist>
+                    </select>
+                </p>
+                <!--<p>
+                    <label>订单线路区域：</label>
+                    <input type="text" name="order_local" class="input" value="{$data.order_local}" />
+                </p>-->
+            </fieldset>
+            <fieldset>
+                <legend>客户信息</legend>
+                <p>
+                    <label>客户出行时间：</label>
+                    <input type="text" name="depart_date" class="required date input" value="{$data.depart_date}" />
+                </p>
+                <p>
+                    <label>客人代表名称：</label>
+                    <input type="text" name="custom_name" class="input" value="{$data.custom_name}" />
+                </p>
+                <p>
+                    <label>人数：</label>
+                    <input type="text" name="person_no" class="number required input" value="{$data.person_no}" />
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>费用信息</legend>
+                <p>
+                    <label>卖出单价：</label>
+                    <input type="text" name="sell_unit" class="number required input" value="{$data.sell_unit}" />
+                </p>
+                <p>
+                    <label>其他收入费用：</label>
+                    <input type="text" name="sell_other" class="number required input" value="{$data.sell_other}" />
+                </p>
+                <p>
+                    <label>结算单价：</label>
+                    <input type="text" name="pay_unit" class="number required input" value="{$data.pay_unit}" />
+                </p>
+                <p>
+                    <label>保险购买途径：</label>
+                    <select name="insurance_way" class="required combox">
+                        <volist name="way" id="item">
+                            <option value="{$item.para_id}"<?php if($item['para_id']==$data['insurance_way']) echo ' selected'; ?>>{$item.para_name}</option>
+                        </volist>
+                    </select>
+                </p>
+                <p>
+                    <label>保险购买单价：</label>
+                    <input type="text" name="insurance_pay" class="number required input" value="{$data.insurance_pay}" />
+                </p>
+                <p>
+                    <label>其他付出费用：</label>
+                    <input type="text" name="pay_other" class="number required input" value="{$data.pay_other}" />
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>其它</legend>
+                <eq name="btnText" value="修改">
+                    <p>
+                        <label>保险购买状态：</label>
+                        <select name="insurance_stat" class="required combox">
+                            <volist name="stat" id="item">
+                                <option value="{$item.para_id}"<?php if($item['para_id']==$data['insurance_stat']) echo ' selected'; ?>>{$item.para_name}</option>
+                            </volist>
+                        </select>
+                    </p>
+                    <p>
+                        <label>订单结算状态：</label>
+                        <select name="settle_stat" class="required combox">
+                            <volist name="settle" id="item">
+                                <option value="{$item.para_id}"<?php if($item['para_id']==$data['settle_stat']) echo ' selected'; ?>>{$item.para_name}</option>
+                            </volist>
+                        </select>
+                    </p>
+                </eq>
+                <p>
+                    <label>备注：</label>
+                    <textarea name="ord_mark" class="input" rows="4">{$data.ord_mark}</textarea>
+                </p>
+            </fieldset>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">{$btnText}</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

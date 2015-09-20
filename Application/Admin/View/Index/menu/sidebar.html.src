@@ -1,0 +1,60 @@
+<div class="accordionHeader">
+    <h2><span>Folder</span>功能模块</h2>
+</div>
+<div class="accordionContent">
+    <ul class="tree treeFolder">
+        <?php if(hasRight(1000)) { ?>
+        <li>
+            <a href="#" func-id="1000">订单</a>
+            <ul>
+                <li><a href="{:U('admin/order/index')}" target="navTab" rel="order" func-id="1001">我的订单</a></li>
+                <li><a href="{:U('admin/request/index')}" target="navTab" rel="fin" func-id="1002">出入账请求</a></li>
+            </ul>
+        </li>
+        <?php } if(hasRight(2000)) { ?>
+        <li>
+            <a href="#" func-id="2000">员工</a>
+            <ul>
+                <li><a href="{:U('admin/dept/index')}" target="navTab" rel="hr" func-id="2001">部门管理</a></li>
+                <li><a href="{:U('admin/post/index')}" target="navTab" rel="hr" func-id="2002">岗位管理</a></li>
+                <li><a href="{:U('admin/user/index')}" target="navTab" rel="hr" func-id="2003">员工管理</a></li>
+            </ul>
+        </li>
+        <?php } if(hasRight(3000)) { ?>
+        <li>
+            <a href="#" func-id="3000">财务</a>
+            <ul>
+                <li><a href="{:U('admin/request/index')}/list" target="navTab" rel="fin" func-id="3001">待审核</a></li>
+                <li><a href="{:U('admin/request/index')}/pay" target="navTab" rel="fin" func-id="3002">待入账</a></li>
+                <li><a href="{:U('admin/request/index')}/fin" target="navTab" rel="fin" func-id="3003">收付流水</a></li>
+                <li><a href="{:U('admin/account/index')}" target="navTab" rel="fin" func-id="3004">账户管理</a></li>
+                <li><a href="{:U('admin/order/index')}/list" target="navTab" rel="order" func-id="3005">所有订单</a></li>
+            </ul>
+        </li>
+        <?php } ?>
+    </ul>
+</div>
+<?php if(hasRight(4000)) { ?>
+<div class="accordionHeader">
+    <h2><span>Folder</span>个人信息</h2>
+</div>
+<div class="accordionContent">
+    <ul class="tree treeFolder">
+        <li><a href="{:U('admin/user/info')}" target="navTab" rel="person" func-id="4001">查看我的信息</a></li>
+        <li><a href="{:U('admin/user/modify')}" target="navTab" rel="person" func-id="4002">修改我的信息</a></li>
+        <li><a href="{:U('admin/user/password')}" target="dialog" rel="person" mask="true" func-id="4003">修改密码</a></li>
+        <li><a href="{:U('admin/user/logout')}" target="ajaxTodo" func-id="4004">退出系统</a></li>
+    </ul>
+</div>
+<?php } if(hasRight(5000)) { ?>
+<div class="accordionHeader">
+    <h2><span>Folder</span>系统设置</h2>
+</div>
+<div class="accordionContent">
+    <ul class="tree treeFolder">
+        <li><a href="{:U('admin/system/index')}" target="navTab" rel="system" func-id="5001">系统参数</a></li>
+        <li><a href="{:U('admin/system/logs')}" target="navTab" rel="system" func-id="5002">登录日志</a></li>
+        <li><a href="{:U('admin/system/runtime')}" target="navTab" rel="system" func-id="5003">系统环境</a></li>
+    </ul>
+</div>
+<?php } ?>

@@ -1,0 +1,33 @@
+<div class="pageContent">
+    <form method="post" action="{:U('admin/account/change')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layoutH="58">
+            <input type="hidden" name="acct_id" value="{$data.acct_id}" />
+            <p>
+                <label>账户名称：</label>
+                <input type="text" name="acct_name" class="required input" value="{$data.acct_name}" />
+            </p>
+            <p>
+                <label>账号：</label>
+                <input type="text" name="acct_no" class="required input" value="{$data.acct_no}" />
+            </p>
+            <p>
+                <label>开户行：</label>
+                <input type="text" name="acct_bank" class="required input" value="{$data.acct_bank}" />
+            </p>
+            <eq name="btnText" value="添加">
+                <p>
+                    <label>初始金额：</label>
+                    <input type="text" name="acct_balance" class="required input" value="{$data.acct_balance}" />
+                </p>
+            </eq>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">{$btnText}</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

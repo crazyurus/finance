@@ -1,0 +1,82 @@
+<div class="pageHeader">
+    <form onsubmit="return divSearch(this, '{$type}-order');" action="{:U('admin/order/table')}/{$type}" method="post">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tbody>
+                    <tr>
+                        <td>
+                            订单创建日期：<input type="text" name="srh[date_start]" class="date srh-input">&nbsp;-&nbsp;<input type="text" name="srh[date_end]" class="date srh-input">
+                        </td>
+                        <td>
+                            订单号：
+                            <input type="text" name="srh[order_id]" class="srh-input">
+                        </td>
+
+                        <eq name="type" value="list">
+                            <td>
+                                所属部门：
+                                <input type="hidden" name="loop_dept.dept_no" lookupgroup="loop_dept" value="" /><input type="text" name="loop_dept.dept_name" class="srh-input valid" value="" lookupgroup="loop_dept" /><a class="btnLook" href="{:U('admin/dept/detail')}" lookupgroup="loop_dept" style="float:none;display:inline-block"></a>
+                            </td>
+                            <td>
+                                <label style="padding:0;color:black;width:auto">员工：</label>
+                                <select name="srh[oper]" class="combox">
+                                    <option value="">请选择……</option>&nbsp;&nbsp;
+                                    <volist name="oper" id="item">
+                                        <option value="{$item.oper_no}">{$item.oper_name}</option>&nbsp;&nbsp;
+                                    </volist>
+                                </select>
+                            </td>
+                        </eq>
+                        <td>
+                            供应商：<input type="text" name="srh[provider]" class="srh-input">
+                        </td>
+                        <!--<td>
+                            订单线路区域：
+                            <select disabled><option value="">暂不开放</option></select>
+                        </td>-->
+                    </tr>
+                    <tr>
+                        <td>
+                            客户出行时间：<input type="text" name="srh[custom_start]" class="date srh-input">&nbsp;-&nbsp;<input type="text" name="srh[custom_end]" class="date srh-input">
+                        </td>
+                        <td>
+                            客户代表名称：<input type="text" name="srh[standard]" class="srh-input">
+                        </td>
+                        <td colspan="3">
+                            保险购买状态：<input type="checkbox" name="srh[stat][]" value="0">全部&nbsp;&nbsp;
+                            <volist name="stat" id="item">
+                                <input type="checkbox" name="srh[stat][]" value="{$item.para_id}">{$item.para_name}&nbsp;&nbsp;
+                            </volist>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            订单线路出境：<input type="checkbox" name="srh[area][]" value="0">全部&nbsp;&nbsp;
+                            <volist name="area" id="item">
+                                <input type="checkbox" name="srh[area][]" value="{$item.para_id}">{$item.para_name}&nbsp;&nbsp;
+                            </volist>
+                        </td>
+                        <td colspan="3">
+                            订单结算状态：<input type="checkbox" name="srh[settle][]" value="0">全部&nbsp;&nbsp;
+                            <volist name="settle" id="item">
+                                <input type="checkbox" name="srh[settle][]" value="{$item.para_id}">{$item.para_name}&nbsp;&nbsp;
+                            </volist>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">按条件检索</button></div></div></li>
+                    <li><div class="button"><div class="buttonContent"><button type="reset" onclick="javascript:navTab.reload('{:U('admin/order/index')}/{$type}');">清除查询条件</button></div></div></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="pageContent">
+    <div id="{$type}-order">
+        <include file="Order/table" />
+    </div>
+</div>

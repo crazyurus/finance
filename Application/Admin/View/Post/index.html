@@ -1,0 +1,54 @@
+<form id="pagerForm" method="post" action="{:U('admin/post/index')}">
+    <input type="hidden" name="pageNum" value="{$currentPage}" />
+    <input type="hidden" name="numPerPage" value="{$numPerPage}" />
+    <input type="hidden" name="orderField" value="" />
+    <input type="hidden" name="orderDirection" value="asc" />
+</form>
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="{:U('admin/post/add')}" target="navTab" title="添加岗位信息"><span>添加</span></a></li>
+            <li><a class="delete" href="{:U('admin/post/delete')}?id={cid}" target="ajaxTodo" title="确定要删除选中的岗位吗?" warn="请先选择岗位！"><span>删除</span></a></li>
+            <li><a class="edit" href="{:U('admin/post/modify')}?id={cid}" target="navTab" rel="hrd" title="修改岗位信息" warn="请先选择岗位！"><span>修改</span></a></li>
+            <li class="line">line</li>
+            <li><a class="icon" href="{:U('admin/post/detail')}" target="dialog" mask="true"><span>岗位组织结构</span></a></li>
+            <!--<li class="line">line</li>
+            <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>-->
+        </ul>
+    </div>
+    <table class="table" width="100%" layoutH="75">
+        <thead>
+            <tr>
+                <th>岗位编号</th>
+                <th>岗位名称</th>
+                <th>上级岗位</th>
+                <th>岗位状态</th>
+                <th>备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            <volist name="data" id="item">
+                <tr target="cid" rel="{$item.post_no}">
+                    <td>{$item.post_no}</td>
+                    <td>{$item.post_name}</td>
+                    <td>{$item.higer_post|trans_post_no}</td>
+                    <td>{$item.post_stat|trans_post_stat}</td>
+                    <td>{$item.post_mark|msubstr=16}</td>
+                </tr>
+            </volist>
+        </tbody>
+    </table>
+    <div class="panelBar">
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10"<?php if($numPerPage==10) echo ' selected'; ?>>10</option>
+                <option value="20"<?php if($numPerPage==20) echo ' selected'; ?>>20</option>
+                <option value="50"<?php if($numPerPage==50) echo ' selected'; ?>>50</option>
+                <option value="100"<?php if($numPerPage==100) echo ' selected'; ?>>100</option>
+            </select>
+            <span>条，共 {$totalCount} 条</span>
+        </div>
+        <div class="pagination" targettype="navTab" totalcount="{$totalCount}" numperpage="{$numPerPage}" pagenumshown="10" currentpage="{$currentPage}"></div>
+    </div>
+</div>

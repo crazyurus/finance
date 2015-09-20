@@ -1,0 +1,94 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$Think.config.title}</title>
+    <link href="__DWZ__/themes/default/style.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="__DWZ__/themes/css/core.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="__DWZ__/themes/css/print.css" rel="stylesheet" type="text/css" media="print" />
+    <link href="__DWZ__/uploadify/css/uploadify.css" rel="stylesheet" type="text/css" media="screen" />
+    <!--[if IE]>
+    <link href="__DWZ__/themes/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
+    <![endif]-->
+    <!--[if lte IE 9]>
+    <script src="__DWZ__/js/speedup.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="__DWZ__/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="__DWZ__/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="__DWZ__/js/jquery.validate.js" type="text/javascript"></script>
+    <script src="__DWZ__/js/jquery.bgiframe.js" type="text/javascript"></script>
+    <script src="__EDITOR__/xheditor-1.2.1.min.js" type="text/javascript"></script>
+    <script src="__EDITOR__/xheditor_lang/zh-cn.js" type="text/javascript"></script>
+    <script src="__DWZ__/uploadify/scripts/jquery.uploadify.js" type="text/javascript"></script>
+    <!-- svg图表  supports Firefox 3.0+, Safari 3.0+, Chrome 5.0+, Opera 9.5+ and Internet Explorer 6.0+ -->
+    <script type="text/javascript" src="__DWZ__/chart/raphael.js"></script>
+    <script type="text/javascript" src="__DWZ__/chart/g.raphael.js"></script>
+    <script type="text/javascript" src="__DWZ__/chart/g.bar.js"></script>
+    <script type="text/javascript" src="__DWZ__/chart/g.line.js"></script>
+    <script type="text/javascript" src="__DWZ__/chart/g.pie.js"></script>
+    <script type="text/javascript" src="__DWZ__/chart/g.dot.js"></script>
+    <script type="text/javascript" src="__DWZ__/js/dwz.min.js"></script>
+    <script src="__DWZ__/js/dwz.regional.zh.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            DWZ.init("__DWZ__/dwz.frag.xml", {
+                loginUrl: "{:U('admin/login/index')}",
+                statusCode: { ok: 200, error: 300, timeout: 301 },
+                pageInfo: { pageNum: "pageNum", numPerPage: "numPerPage", orderField: "orderField", orderDirection: "orderDirection" },
+                keys: { statusCode: "statusCode", message: "message" },
+                ui: { hideMode: 'offsets' },
+                debug: false,
+                callback: function () {
+                    initEnv();
+                    $("#themeList").theme({ themeBase: "themes" });
+                }
+            });
+        });
+    </script>
+</head>
+<body scroll="no">
+    <div id="layout">
+        <div id="header">
+            <div class="headerNav">
+                <include file="Index/menu/nav" />
+            </div>
+        </div>
+        <div id="leftside">
+            <div id="sidebar_s">
+                <div class="collapse">
+                    <div class="toggleCollapse"><div></div></div>
+                </div>
+            </div>
+            <div id="sidebar">
+                <div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
+                <div class="accordion" fillspace="sidebar">
+                    <include file="Index/menu/sidebar" />
+                </div>
+            </div>
+        </div>
+        <div id="container">
+            <div id="navTab" class="tabsPage">
+                <div class="tabsPageHeader">
+                    <div class="tabsPageHeaderContent">
+                        <ul class="navTab-tab">
+                            <li tabid="main" class="main"><a href="javascript:;"><span><span class="home_icon">欢迎页</span></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="tabsLeft">left</div>
+                    <div class="tabsRight">right</div>
+                    <div class="tabsMore">more</div>
+                </div>
+                <ul class="tabsMoreList">
+                    <li><a href="javascript:;">欢迎页</a></li>
+                </ul>
+                <div class="navTab-panel tabsPageContent layoutBox">
+                    <div class="page unitBox" style="text-align: center; margin-top: 80px; display: block;">
+                        <img alt="欢迎页" src="__DWZ__/themes/default/images/welcome.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">Copyright &copy; <?php echo date('Y'); ?>&nbsp;{$Think.config.author}</div>
+</body>
+</html>

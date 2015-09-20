@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>登录到{$Think.config.title}</title>
+    <link href="__DWZ__/themes/css/login.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__DWZ__/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+    <div id="login">
+        <div id="login_header">
+            <h1 class="login_logo">
+                <a href="__URL__" style="color:black;font-size:32px;text-decoration:none">{$Think.config.title}</a>
+            </h1>
+            <div class="login_headerContent">
+                <div class="navList">
+                    <ul></ul>
+                </div>
+                <h2 class="login_title"><img src="__DWZ__/themes/default/images/login_title.png" /></h2>
+            </div>
+        </div>
+        <div id="login_content">
+            <div class="loginForm">
+                <p>
+                    <label>工号：</label>
+                    <input type="text" name="oper_no" style="width:133px" class="login_input" maxlength="5" />
+                </p>
+                <p>
+                    <label>密码：</label>
+                    <input type="password" name="oper_pass" style="width:133px" class="login_input" maxlength="16" />
+                </p>
+                <!--<p>
+                    <label>验证码：</label>
+                    <input type="text" name="oper_verify" size="4" class="code" maxlength="4" required=required />
+                    <span><img id="verifyImg" src="{:U('admin/login/verify.gif')}?stamp{:time()}" title="单击图片可更换验证码" alt="验证码" width="75" height="24" style="cursor:pointer" /></span>
+                </p>-->
+                <div class="login_bar">
+                    <input class="sub" type="button" value=" " />
+                </div>
+            </div>
+            <div class="login_banner"><img src="__DWZ__/themes/default/images/login_banner.jpg" /></div>
+            <div class="login_main">
+                <ul class="helpList">
+                    <li><a href="#">忘记员工号怎么办？</a></li>
+                    <li><a href="#">忘记密码怎么办？</a></li>
+                </ul>
+                <div class="login_inner">
+                    <p>您可以通过此平台提交订单，实现账目管理</p>
+                    <p>您还可以查看资金流水，管理员工和账户信息</p>
+                </div>
+            </div>
+        </div>
+        <div id="login_footer">
+            Copyright &copy; <?php echo date('Y'); ?>&nbsp;{$Think.config.author}
+        </div>
+    </div>
+    <script type="text/javascript">
+        // 修复ie8下缺少trim
+        String.prototype.trim = function () {
+            return $.trim(this);
+        };
+
+        $(document).ready(function () {
+            $("#verifyImg").click(function () {
+                var timenow = new Date().getTime();
+                $("#verifyImg").attr("src", '__URL__/verify.gif?stamp=' + timenow);
+            });
+
+            $(".sub").click(function () {
+                var msg = "";
+                var no_obj = $("input[name=oper_no]").val();
+                var pass_obj = $("input[name=oper_pass]").val();
+                if (no_obj == "") msg = "请输入员工号！";
+                else if (pass_obj == "") msg = "请输入密码！";
+                else if (no_obj.length != 5) msg = "员工号格式不正确！";
+                    //else if ($("input[name=oper_verify]").val() == "") msg = "请输入验证码！";
+                else {
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        cache: false,
+                        url: "{:U('admin/login/check')}",
+                        data: {
+                            oper_no: no_obj,
+                            oper_pass: pass_obj
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.statusCode == 300) msg = data.message;
+                        }
+                    });
+                }
+                if (msg.trim() == "") location.assign("/finance");
+                else {
+                    $("input[name=oper_pass]").val("");
+                    alert(msg);
+                }
+            });
+
+            $("input[name=oper_pass]").keydown(function (e) {
+                if (e.which == 13) {
+                    $(".sub").click();
+                    return false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

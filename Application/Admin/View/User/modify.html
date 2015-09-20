@@ -1,0 +1,96 @@
+<eq name="type" value="true">
+    <eq name="btnText" value="添加">
+        <h2 class="contentTitle">添加员工信息</h2>
+        <else />
+        <h2 class="contentTitle">修改{$data.oper_name}的信息</h2>
+    </eq>
+    <else />
+    <h2 class="contentTitle">修改我的信息</h2>
+</eq>
+<div class="pageContent">
+    <form method="post" action="{:U('admin/user/setInfo')}" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone)">
+        <div class="pageFormContent nowrap" layoutH="97">
+            <input type="hidden" name="type" value="{$btnText}" />
+            <eq name="type" value="true">
+                <dl>
+                    <dt>工号：</dt>
+                    <dd>
+                        <eq name="btnText" value="添加">
+                            <input type="text" name="oper_no" class="input required" value="" minlength="5" maxlength="5" />
+                        <else />
+                            <input type="text" name="oper_no" class="input required" value="{$data.oper_no|trans_oper_no}" readonly />
+                        </eq>
+                    </dd>
+                </dl>
+            </eq>
+            <eq name="type" value="true">
+                <dl>
+                    <dt>姓名：</dt>
+                    <dd><input type="text" name="oper_name" class="input required" value="{$data.oper_name}" /></dd>
+                </dl>
+                <dl>
+                    <dt>密码：</dt>
+                    <dd><input type="password" name="oper_pass" class="input" maxlength="20" value="" /></dd>
+                </dl>
+                <dl>
+                    <dt>部门：</dt>
+                    <dd><input type="hidden" name="loop_dept.dept_no" lookupgroup="loop_dept" value="{$data.oper_dept_no}" /><input type="text" name="loop_dept.dept_name" class="input required valid" value="{$data.oper_dept_no|trans_dept_no}" lookupgroup="loop_dept" readonly /><a class="btnLook" href="{:U('admin/dept/detail')}" lookupgroup="loop_dept">查找部门</a></dd>
+                </dl>
+                <dl>
+                    <dt>岗位：</dt>
+                    <dd><input type="hidden" name="loop_post.post_no" lookupgroup="loop_post" value="{$data.oper_post_no}" /><input type="text" name="loop_post.post_name" class="input required valid" value="{$data.oper_post_no|trans_post_no}" lookupgroup="loop_post" readonly /><a class="btnLook" href="{:U('admin/post/detail')}" lookupgroup="loop_post">查找岗位</a></dd>
+                </dl>
+                <dl>
+                    <dt>在职状态：</dt>
+                    <dd>
+                        <select name="oper_stat" class="required combox">
+                            <option value="1"<?php if($data['oper_stat']==1) echo ' selected'; ?>>在职</option>
+                            <option value="0"<?php if($data['oper_stat']==0) echo ' selected'; ?>>离职</option>
+                        </select>
+                    </dd>
+                </dl>
+                <else />
+                <dl>
+                    <dt>姓名：</dt>
+                    <dd>{$data.oper_name}</dd>
+                </dl>
+            </eq>
+            <dl>
+                <dt>手机：</dt>
+                <dd><input type="text" name="oper_mobile" class="number input" maxlength="11" minlength="11" value="{$data.oper_mobile}" /></dd>
+            </dl>
+            <dl>
+                <dt>身份证号：</dt>
+                <dd><input type="text" name="oper_cid" class="input" maxlength="18" minlength="18" value="{$data.oper_cid}" /></dd>
+            </dl>
+            <dl>
+                <dt>生日：</dt>
+                <dd><input type="text" name="oper_bth" class="date input" value="{$data.oper_bth}" /><a class="inputDateButton" href="javascript:;">选择</a></dd>
+            </dl>
+            <dl>
+                <dt>个人说明：</dt>
+                <dd><textarea name="oper_info" style="width:70%;height:120px">{$data.oper_info}</textarea></dd>
+            </dl>
+            <eq name="type" value="true">
+                <dl>
+                    <dt>备注：</dt>
+                    <dd><input type="text" name="oper_mark" class="input" value="{$data.oper_mark}" /></dd>
+                </dl>
+            </eq>
+            <eq name="type" value="true">
+                <eq name="btnText" value="修改">
+                    <div class="divider"></div>
+                    <p><b>注意：</b>部分修改项将在下次登录后生效。</p>
+                </eq>
+            </eq>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">{$btnText}</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,17 @@
+<a href="__URL__" style="color:white;font-size:28px;padding:0 18px;text-decoration:none;line-height:42px">{$Think.config.title}</a>
+<ul class="nav">
+    <li style="background: none"><a href="{:U('admin/user/info')}" target="navTab" rel="person" title="查看我的信息">{$Think.session.user_name}</a></li>
+    <li class="white">{$Think.session.user_dept|trans_dept_no}</li>
+    <li class="white">{$Think.session.user_post|trans_post_no}</li>
+    <li><a href="{:U('admin/user/logout')}" target="ajaxTodo" title="确定要退出{$Think.config.title}吗?">退出</a></li>
+</ul>
+<!-- 主题颜色
+<ul class="themeList" id="themeList">
+    <li theme="default"><div class="selected">蓝色</div></li>
+    <li theme="green"><div>绿色</div></li>
+    <li theme="red"><div>红色</div></li>
+    <li theme="purple"><div>紫色</div></li>
+    <li theme="silver"><div>银色</div></li>
+    <li theme="azure"><div>天蓝</div></li>
+</ul>
+-->

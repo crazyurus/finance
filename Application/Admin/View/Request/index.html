@@ -1,0 +1,64 @@
+<eq name="type" value="fin">
+    <div class="pageHeader">
+        <form onsubmit="return divSearch(this, '{$type}-request');" action="{:U('admin/request/table')}/{$type}?id={$Think.get.id}" method="post">
+            <div class="searchBar">
+                <table class="searchContent">
+                    <tbody>
+                        <tr>
+                            <td>
+                                操作时间：<input type="text" name="srh[date_start]" class="date srh-input">&nbsp;-&nbsp;<input type="text" name="srh[date_end]" class="date srh-input">
+                            </td>
+                            <td>
+                                订单ID：<input type="text" name="srh[id]" class="srh-input">
+                            </td>
+                            <td>
+                                <label style="padding:0;color:black;width:auto">员工：</label>
+                                <select name="srh[oper]" class="combox">
+                                    <option value="">请选择……</option>&nbsp;&nbsp;
+                                    <volist name="oper" id="item">
+                                        <option value="{$item.oper_no}">{$item.oper_name}</option>&nbsp;&nbsp;
+                                    </volist>
+                                </select>
+                            </td>
+                            <td>
+                                收付标志：<input type="checkbox" name="srh[flag][]" value="1">收&nbsp;&nbsp;<input type="checkbox" name="srh[flag][]" value="-1">付
+                            </td>
+                            <td>
+                                收付金额：<input type="text" name="srh[amount_start]" class="srh-input number" style="width:50px !important">&nbsp;-&nbsp;<input type="text" name="srh[amount_end]" class="srh-input number" style="width:50px !important">元
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                收付账户：
+                                <input type="checkbox" name="srh[acct][]" value="">全部&nbsp;
+                                <volist name="account" id="item">
+                                    <input type="checkbox" name="srh[acct][]" value="{$item.acct_id}">{$item.acct_name}&nbsp;
+                                </volist>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                科目：<input type="checkbox" name="srh[subject][]" value="">全部&nbsp;
+                                <volist name="subject" id="item">
+                                    <input type="checkbox" name="srh[subject][]" value="{$item.subject_code}">{$item.subject_name}&nbsp;
+                                </volist>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="subBar">
+                    <ul>
+                        <li><div class="buttonActive"><div class="buttonContent"><button type="submit">按条件检索</button></div></div></li>
+                        <li><div class="button"><div class="buttonContent"><button type="reset" onclick="javascript:navTab.reload('{:U('admin/request/index')}/{$type}?id={$Think.get.id}');">清除查询条件</button></div></div></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</eq>
+
+<div class="pageContent">
+    <div id="{$type}-request">
+        <include file="Request/table" />
+    </div>
+</div>

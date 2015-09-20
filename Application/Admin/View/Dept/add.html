@@ -1,0 +1,51 @@
+<h2 class="contentTitle">{$btnText}部门信息</h2>
+<div class="pageContent">
+    <form method="post" action="{:U('admin/dept/change')}" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent nowrap" layoutH="97">
+            <input type="hidden" name="type" value="{$btnText}" />
+            <dl>
+                <dt>部门编号：</dt>
+                <dd><input type="text" name="dept_no" class="number required input" value="{$data.dept_no}" minlength="5" maxlength="5" <?php if($btnText=='修改') echo 'readonly'; ?> /></dd>
+            </dl>
+            <dl>
+                <dt>部门名称：</dt>
+                <dd><input type="text" name="dept_name" class="required input" value="{$data.dept_name}" /></dd>
+            </dl>
+            <dl>
+                <dt>所在部门：</dt>
+                <dd><input type="hidden" name="loop_dept.dept_no" lookupgroup="loop_dept" value="{$data.higer_dept}" /><input type="text" name="loop_dept.dept_name" class="input valid" value="{$data.higer_dept|trans_dept_no}" lookupgroup="loop_dept" /><a class="btnLook" href="{:U('admin/dept/detail')}" lookupgroup="loop_dept">查找部门</a></dd>
+            </dl>
+            <dl>
+                <dt>部门地址：</dt>
+                <dd><input type="text" name="dept_addr" class="input" value="{$data.dept_addr}" /></dd>
+            </dl>
+            <dl>
+                <dt>部门定位信息：</dt>
+                <dd><input type="text" name="dept_gps" class="input" value="{$data.dept_gps}" /></dd>
+            </dl>
+            <dl>
+                <dt>部门状态：</dt>
+                <dd>
+                    <select name="dept_stat" class="required combox">
+                        <option value="1"<?php if($data['dept_stat']==1) echo ' selected'; ?>>存在</option>
+                        <option value="0"<?php if(isset($data['dept_stat'])&&$data['dept_stat']==0) echo ' selected'; ?>>撤销</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl>
+                <dt>备注：</dt>
+                <dd><input type="text" name="dept_mark" class="input" value="{$data.dept_mark}" /></dd>
+            </dl>
+            <div class="divider"></div>
+            <p><b>注意：</b>若该部门为顶级部门，请将所在部门栏清空。</p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">{$btnText}</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,33 @@
+<div class="pageContent">
+    <div class="pageFormContent nowrap" layoutH="58">
+        <p>
+            <label>账户序号：</label>
+            <label>{$data.acct_id}</label>
+        </p>
+        <p>
+            <label>账户名称：</label>
+            <label>{$data.acct_name}</label>
+        </p>
+        <p>
+            <label>账号：</label>
+            <label>{$data.acct_no}</label>
+        </p>
+        <p>
+            <label>开户行：</label>
+            <label>{$data.acct_bank}</label>
+        </p>
+        <eq name="right" value="true">
+        <p>
+            <label>当前余额：</label>
+            <label>{$data.acct_balance}</label>
+        </p>
+        </eq>
+    </div>
+    <div class="formBar">
+        <ul>
+            <li>
+                <div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div>
+            </li>
+        </ul>
+    </div>
+</div>

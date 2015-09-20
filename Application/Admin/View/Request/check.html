@@ -1,0 +1,38 @@
+<div class="pageContent">
+    <form method="post" action="{:U('admin/request/check')}/check" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layouth="58">
+            <input type="hidden" name="id" value="{$data.id}" />
+            <input type="hidden" name="type" value="{$type}" />
+            <p>
+                <label>收支：</label>{$data.settle_flag|trans_settle_flag}
+                <input type="hidden" name="settle_flag" value="{$data.settle_flag}" />
+            </p>
+            <p>
+                <label>账户：</label>
+                <select name="acct_id" class="required combox">
+                    <volist name="select" id="item">
+                        <option value="{$item.acct_id}"<?php if($item['acct_id']==$data['acct_id']) echo ' selected'; ?>>{$item.acct_name}</option>
+                    </volist>
+                </select>
+            </p>
+            <p>
+                <label>金额：</label>
+                <input type="text" name="action_amount" class="required input number" value="{$data.action_amount}" />
+            </p>
+            <p>
+                <label>备注：</label>
+                <textarea name="seq_mark" rows="4">{$data.seq_mark}</textarea>
+            </p>
+            <div class="divider"></div>
+            <p><b>注意：</b>金额栏请填写正值，不代表收支情况。</p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">审核通过</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消审核</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
