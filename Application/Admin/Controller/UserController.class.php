@@ -68,8 +68,6 @@ class UserController extends AdminController {
         unset($_POST['type']);
         if(isset($_POST['oper_no'])) {
             if(!hasRight(2000)) $this->errors('你没有权限修改信息！');
-            $temp = $this->oper_obj->where('`oper_no`='.$_POST['oper_no'])->find();
-            if($temp != false && $temp['oper_no'] != $_POST['oper_no']) $this->errors('员工号已存在！');
             $_POST['oper_dept_no'] = $_POST['loop_dept_dept_no'];
             $_POST['oper_post_no'] = $_POST['loop_post_post_no'];
             unset($_POST['loop_dept_dept_no']);
@@ -79,8 +77,15 @@ class UserController extends AdminController {
             if(!empty($_POST['oper_pass'])) $_POST['oper_pass'] = md5($_POST['oper_pass'].C('salt'));
             if($type == '添加') {
                 if(empty($_POST['oper_pass'])) $_POST['oper_pass'] = md5('123456'.C('salt'));
-                $this->oper_obj->create($_POST);
-                $this->oper_obj->add();
+                try {
+                    $this->oper_obj->create($_POST);
+                    $this->oper_obj->add();
+                } catch(\Exception $e) {
+                    if($e->getCode() == 23000) {
+                        $this->errors('添加失败，该员工号已存在');
+                    }
+                    else $this->errors('添加员工信息失败！');
+                }
             }
             else {
                 if(empty($_POST['oper_pass'])) unset($_POST['oper_pass']);
