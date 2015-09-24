@@ -96,7 +96,7 @@ class OrderController extends AdminController {
                 exit;
         }
         $this->page($this->order_obj, $map, '`ord_date` desc');
-        $this->assign('oper', M('hr_opers')->where(array('oper_stat'=>1))->select());
+        $this->assign('oper', getOpers());
         $this->assign('type', $type);
         $this->select();
     }

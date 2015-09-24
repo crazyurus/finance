@@ -144,3 +144,12 @@ function trans_post_no($num) {
 function trans_date($str) {
     return strtok($str, ' ');
 }
+
+function getOpers() {
+    $oper = M('hr_opers')->field('oper_no, oper_name, oper_stat')->order('oper_stat desc')->select();
+    foreach ($oper as &$item) {
+        if($item['oper_stat'] == 0) $item['oper_name'] .= '-离职';
+        else $item['oper_name'] .= '-在职';
+    }
+    return $oper;
+}

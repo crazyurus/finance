@@ -170,7 +170,7 @@ class RequestController extends AdminController {
                 $obj = $this->fin_obj2;
                 $order = 'check_date';
                 $this->assign('account', M('fin_acct')->select());
-                $this->assign('oper', M('hr_opers')->where(array('oper_stat'=>1))->select());
+                $this->assign('oper', getOpers());
                 $this->assign('subject', M('fin_seqcheck')->distinct(true)->field('ut_fin_seqcheck.subject_code, ut_fin_subject.subject_name')->join('ut_fin_subject ON ut_fin_seqcheck.subject_code = ut_fin_subject.subject_no AND ut_fin_subject.subject_stat=1')->order('ut_fin_subject.subject_no')->select());
                 break;
             case 'pay':
