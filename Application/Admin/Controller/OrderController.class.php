@@ -59,10 +59,10 @@ class OrderController extends AdminController {
             if($sys_info['sys_date']!=date('Y-m-d',$now)) $sys_obj->where("`sys_table_name`='ut_ord_info'")->data(array('sys_count'=>1,'sys_date'=>date('Y-m-d',$now)))->save();
             else $sys_obj->where("`sys_table_name`='ut_ord_info'")->setInc('sys_count',1);
             $index = $sys_obj->where("`sys_table_name`='ut_ord_info'")->find();
-            $_POST['ord_id'] = trans_oper_no($_SESSION['user_dept']).trans_oper_no($_SESSION['user_id']).date('Ymd',time()).trans_oper_no($index['sys_count']);
+            $_POST['ord_id'] = trans_oper_no(session('user_dept')).trans_oper_no(session('user_id')).date('Ymd',time()).trans_oper_no($index['sys_count']);
             $_POST['ord_date'] = date('Y-m-d H:i:s',time());
-            $_POST['oper_no'] = $_SESSION['user_id'];
-            $_POST['dept_no'] = $_SESSION['user_dept'];
+            $_POST['oper_no'] = session('user_id');
+            $_POST['dept_no'] = session('user_dept');
             $_POST['selled_total'] = 0;
             $_POST['sell_difference'] = $_POST['sell_total'];
             $_POST['payed_total'] = 0;
@@ -88,7 +88,7 @@ class OrderController extends AdminController {
         $this->query($map);
         switch($type) {
             case 'home':
-                $map['oper_no'] = intval($_SESSION['user_id']);
+                $map['oper_no'] = intval(session('user_id'));
                 break;
             case 'list':
                 break;

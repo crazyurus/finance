@@ -26,7 +26,7 @@ class UserController extends AdminController {
     }
     
     private function query() {
-        $id = isset($_GET['id']) ? $_GET['id'] : intval($_SESSION['user_id']);
+        $id = isset($_GET['id']) ? $_GET['id'] : intval(session('user_id'));
         $result = $this->oper_obj->find($id);
         if($result == false) $this->timeout();
         $this->assign('type', isset($_GET['id']));
@@ -93,7 +93,7 @@ class UserController extends AdminController {
                 $this->oper_obj->save();
             }
         }
-        else $this->oper_obj->where('oper_no='.$_SESSION['user_id'])->data($_POST)->save();
+        else $this->oper_obj->where('oper_no='.session('user_id'))->data($_POST)->save();
         $this->success('操作成功！',1,200,'hr');
     }
     
@@ -107,12 +107,12 @@ class UserController extends AdminController {
         if($pwd_1 !== $pwd_2) {
             $this->errors('两次输入的新密码不一致！');
         }
-        $result = $this->oper_obj->find($_SESSION['user_id']);
+        $result = $this->oper_obj->find(session('user_id'));
         if($result == false) $this->timeout();
         if(md5($pwd_c.C('salt')) !== $result['oper_pass']) {
             $this->errors('原密码不正确！');        
         }
-        $this->oper_obj->where('oper_no='.$_SESSION['user_id'])->setField('oper_pass', md5($pwd_1.C('salt')));
+        $this->oper_obj->where('oper_no='.session('user_id'))->setField('oper_pass', md5($pwd_1.C('salt')));
         $this->success('密码修改成功！',1);
     }
     

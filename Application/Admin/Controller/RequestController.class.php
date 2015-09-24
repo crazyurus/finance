@@ -58,7 +58,7 @@ class RequestController extends AdminController {
                 $seq = $this->fin_obj->find($_POST['id']);
                 unset($seq['id']);
                 $seq['check_date'] = date('Y-m-d H:i:s', $now);
-                $seq['check_no'] = $_SESSION['user_id'];
+                $seq['check_no'] = session('user_id');
                 $this->update($seq);
                 $this->success('该请求支付成功！', 1, 200, 'fin');
             }
@@ -87,7 +87,7 @@ class RequestController extends AdminController {
         $flag = isset($_POST['order_id']);
         if(!$flag) $_POST['seq_no'] = $this->seq($now);
         $_POST['action_date'] = date('Y-m-d H:i:s',$now);
-        $_POST['oper_no'] = $_SESSION['user_id'];
+        $_POST['oper_no'] = session('user_id');
         $_POST['check_stat'] = $flag ? self::UNCHECK : self::PASS;
 		$_POST['check_date'] = $_POST['action_date'];
         if($flag) {
@@ -158,7 +158,7 @@ class RequestController extends AdminController {
         $map = array();
         switch($type) {
             case 'home':
-                $map['oper_no'] = $_SESSION['user_id'];
+                $map['oper_no'] = session('user_id');
             case 'read':
                 $map['order_id'] = I('get.id');
                 $obj = $this->fin_obj;
@@ -176,9 +176,9 @@ class RequestController extends AdminController {
                 $obj = $this->fin_obj;
                 break;
             case 'list':
-                if($_SESSION['user_post']==10020) $map['subject_code'] = array('notlike', array('6001%', '6401%'), 'AND');
-                elseif($_SESSION['user_post']==20000) {
-                    $oper = M('hr_opers')->field('oper_no')->where('oper_dept_no='.$_SESSION['user_dept'])->select();
+                if(session('user_post')==10020) $map['subject_code'] = array('notlike', array('6001%', '6401%'), 'AND');
+                elseif(session('user_post')==20000) {
+                    $oper = M('hr_opers')->field('oper_no')->where('oper_dept_no='.session('user_dept'))->select();
                     $target = array();
                     foreach($oper as $key => $value) {
                         $target[] = $value['oper_no'];
@@ -227,6 +227,6 @@ class RequestController extends AdminController {
         if($sys_info['sys_date']!=date('Y-m-d',$now)) $sys_obj->where("`sys_table_name`='ut_fin_seqtemp'")->data(array('sys_count'=>1,'sys_date'=>date('Y-m-d',$now)))->save();
         else $sys_obj->where("`sys_table_name`='ut_fin_seqtemp'")->setInc('sys_count',1);
         $index = $sys_obj->where("`sys_table_name`='ut_fin_seqtemp'")->find();
-        return trans_oper_no($_SESSION['user_id']).date('Ymd',$now).trans_oper_no($index['sys_count']);
+        return trans_oper_no(session('user_id')).date('Ymd',$now).trans_oper_no($index['sys_count']);
     }
 }
