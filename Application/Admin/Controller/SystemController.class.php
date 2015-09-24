@@ -53,6 +53,11 @@ class SystemController extends AdminController {
         $this->page(M('hr_log'), array(), '`log_date` desc');
         $this->display();
     }
+
+    public function clean() {
+        M()->execute('TRUNCATE TABLE `'.C('DB_PREFIX').'hr_log`');
+        $this->success('清空记录成功！');
+    }
     
     public function info() {
         phpinfo();

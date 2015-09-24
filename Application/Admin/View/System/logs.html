@@ -5,7 +5,12 @@
     <input type="hidden" name="orderDirection" value="asc" />
 </form>
 <div class="pageContent">
-    <table class="table" width="100%" layoutH="48">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="delete" href="{:U('admin/system/clean')}" target="ajaxTodo" title="确定要清空系统日志吗?"><span>清空系统日志</span></a></li>
+        </ul>
+    </div>
+    <table class="table" width="100%" layoutH="75">
         <thead>
             <tr>
                 <th>登录时间</th>
