@@ -156,6 +156,7 @@ class RequestController extends AdminController {
     
     private function method($type) {
         $map = array();
+        $order = 'action_date';
         switch($type) {
             case 'home':
                 $map['oper_no'] = session('user_id');
@@ -167,6 +168,7 @@ class RequestController extends AdminController {
                 $this->query($map);
                 $map['check_stat'] = self::PASS;
                 $obj = $this->fin_obj2;
+                $order = 'check_date';
                 $this->assign('account', M('fin_acct')->select());
                 $this->assign('oper', M('hr_opers')->where(array('oper_stat'=>1))->select());
                 $this->assign('subject', M('fin_seqcheck')->distinct(true)->field('ut_fin_seqcheck.subject_code, ut_fin_subject.subject_name')->join('ut_fin_subject ON ut_fin_seqcheck.subject_code = ut_fin_subject.subject_no AND ut_fin_subject.subject_stat=1')->order('ut_fin_subject.subject_no')->select());
@@ -192,11 +194,12 @@ class RequestController extends AdminController {
             case 'account':
                 $map = array('acct_id'=>I('get.id'));
                 $obj = $this->fin_obj2;
+                $order = 'check_date';
                 break;
             default:
                 exit;
         }
-        $this->page($obj, $map, '`check_stat` asc, `action_date` desc');
+        $this->page($obj, $map, '`check_stat` asc, `'.$order.'` desc');
         $this->assign('type', $type);
     }
     
