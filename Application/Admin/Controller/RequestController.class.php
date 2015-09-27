@@ -51,7 +51,8 @@ class RequestController extends AdminController {
             if($_POST['type'] == 'pay') {
                 $now = time();
                 $_POST['check_stat'] = self::PASS;
-                $_POST['seq_no'] = $this->seq($now);
+                $oper_no = $this->fin_obj->field('oper_no')->find($_POST['id'])['oper_no'];
+                $_POST['seq_no'] = $this->seq($now, $oper_no);
                 unset($_POST['type']);
                 $this->fin_obj->create($_POST);
                 $this->fin_obj->save();
@@ -85,7 +86,7 @@ class RequestController extends AdminController {
     public function change() {
         $now = time();
         $flag = isset($_POST['order_id']);
-        if(!$flag) $_POST['seq_no'] = $this->seq($now);
+        if(!$flag) $_POST['seq_no'] = $this->seq($now, session('user_id'));
         $_POST['action_date'] = date('Y-m-d H:i:s',$now);
         $_POST['oper_no'] = session('user_id');
         $_POST['check_stat'] = $flag ? self::UNCHECK : self::PASS;
@@ -224,12 +225,12 @@ class RequestController extends AdminController {
         }
     }
     
-    private function seq($now) {
+    private function seq($now, $id) {
         $sys_obj = M('sys_index');
         $sys_info = $sys_obj->where("`sys_table_name`='ut_fin_seqtemp'")->find();
         if($sys_info['sys_date']!=date('Y-m-d',$now)) $sys_obj->where("`sys_table_name`='ut_fin_seqtemp'")->data(array('sys_count'=>1,'sys_date'=>date('Y-m-d',$now)))->save();
         else $sys_obj->where("`sys_table_name`='ut_fin_seqtemp'")->setInc('sys_count',1);
         $index = $sys_obj->where("`sys_table_name`='ut_fin_seqtemp'")->find();
-        return trans_oper_no(session('user_id')).date('Ymd',$now).trans_oper_no($index['sys_count']);
+        return trans_oper_no($id).date('Ymd',$now).trans_oper_no($index['sys_count']);
     }
 }
