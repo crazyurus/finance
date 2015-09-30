@@ -69,7 +69,7 @@ class OrderController extends AdminController {
             $_POST['pay_difference'] = $_POST['pay_total'];
             $this->order_obj->create($_POST);
             $this->order_obj->add();
-            $this->success('添加订单成功！<br/>订单ID为：'.$_POST['ord_id'], 1);
+            $this->success('添加订单成功！<br/>订单ID为：'.$_POST['ord_id'], 1, 200, 'order');
         }
     }
     
