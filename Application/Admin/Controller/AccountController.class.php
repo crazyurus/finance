@@ -60,4 +60,13 @@ class AccountController extends AdminController {
         $this->assign('right', hasRight(3000));
         $this->display();
     }
+
+    public function total() {
+        $total = 0;
+        foreach ($this->acct_obj->field('acct_balance')->select() as $item) {
+            $total += $item['acct_balance'];
+        }
+        $this->assign('total', $total);
+        $this->display();
+    }
 }
