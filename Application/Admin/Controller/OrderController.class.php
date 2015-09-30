@@ -78,6 +78,18 @@ class OrderController extends AdminController {
         $this->assign('data', $result);
         $this->display();
     }
+
+    public function move($id) {
+        $this->assign('current', $this->order_obj->field('ord_id, oper_no')->find($id));
+        $this->assign('oper', getOpers());
+        $this->display();
+    }
+
+    public function remove() {
+        $this->order_obj->create($_POST);
+        $this->order_obj->save();
+        $this->success('移交订单成功！', 1, 200, 'order');
+    }
     
     private function param($col) {
         return M('ord_para')->where("`para_column`='{$col}'")->select();

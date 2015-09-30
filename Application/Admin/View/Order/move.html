@@ -1,0 +1,30 @@
+<div class="pageContent">
+    <form method="post" action="{:U('admin/order/remove')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layouth="58">
+            <input type="hidden" name="ord_id" value="{$current.ord_id}" />
+            <p>
+                <label>订单编号：</label>{$current.ord_id}
+            </p>
+            <p>
+                <label>目前订单所有者：</label>{$current.oper_no|find_oper_no}
+            </p>
+            <p>
+                <label>移交给：</label>
+                <select name="oper_no" class="required combox">
+                    <option value="">请选择……</option>&nbsp;&nbsp;
+                    <volist name="oper" id="item">
+                    <option value="{$item.oper_no}">{$item.oper_name}</option>&nbsp;&nbsp;
+                    </volist>
+                </select>
+            </p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">移交</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

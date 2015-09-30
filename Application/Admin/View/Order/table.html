@@ -9,10 +9,12 @@
         <eq name="type" value="home">
             <li><a class="add" href="{:U('admin/order/add')}" target="dialog" height="450" mask="true" title="添加订单"><span>添加</span></a></li>
             <li><a class="add" href="{:U('admin/request/index')}/home?id={cid}" target="navTab" rel="fin" title="订单收支情况" warn="请选择订单！"><span>申请收支</span></a></li>
+            <li class="line">line</li>
         <else />
             <li><a class="add" href="{:U('admin/request/index')}/read?id={cid}" target="dialog" mask="true" width="840" height="420" title="订单收支情况" warn="请选择订单！"><span>收支情况</span></a></li>
+            <li class="line">line</li>
+            <li><a class="edit" href="{:U('admin/order/move')}?id={cid}" target="dialog" height="240" mask="true" title="移交订单" warn="请选择订单！"><span>移交</span></a></li>
         </eq>
-        <li class="line">line</li>
         <li><a class="edit" href="{:U('admin/order/modify')}?id={cid}" target="dialog" height="450" mask="true" title="修改订单" warn="请选择订单！"><span>修改</span></a></li>
         <li><a class="delete" href="{:U('admin/order/delete')}?id={cid}" target="ajaxTodo" title="确定要删除选中的订单吗?" warn="请先选择订单！"><span>删除</span></a></li>
         <li class="line">line</li>
