@@ -62,11 +62,7 @@ class AccountController extends AdminController {
     }
 
     public function total() {
-        $total = 0;
-        foreach ($this->acct_obj->field('acct_balance')->select() as $item) {
-            $total += $item['acct_balance'];
-        }
-        $this->assign('total', $total);
+        $this->assign('total', $this->acct_obj->sum('acct_balance'));
         $this->display();
     }
 }
