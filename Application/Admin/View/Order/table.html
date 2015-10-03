@@ -19,7 +19,9 @@
         <li><a class="delete" href="{:U('admin/order/delete')}?id={cid}" target="ajaxTodo" title="确定要删除选中的订单吗?" warn="请先选择订单！"><span>删除</span></a></li>
         <li class="line">line</li>
         <li><a class="icon" href="{:U('admin/order/detail')}?id={cid}" target="dialog" mask="true" width="720" height="420" title="订单详细信息" warn="请选择订单！"><span>详细信息</span></a></li>
-        <li><a class="icon" href="{:U('admin/order/total')}?page={$currentPage}" target="dialog" mask="true" width="720" height="410" title="订单收支汇总"><span>收支汇总</span></a></li>
+        <eq name="type" value="list">
+            <li><a class="icon" href="{:U('admin/order/total')}?page={$currentPage}" target="dialog" mask="true" width="720" height="410" title="订单收支汇总"><span>收支汇总</span></a></li>
+        </eq>
         <!--
         <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>-->
     </ul>
