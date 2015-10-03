@@ -90,6 +90,26 @@ class OrderController extends AdminController {
         $this->order_obj->save();
         $this->success('移交订单成功！', 1, 200, 'order');
     }
+
+    public function total() {
+        $map = S('order_srh') ? S('order_srh') : array();
+        $page = new \Org\Util\Page(0, I('get.page'));
+        $total = array();
+        $field = array('sell_total', 'selled_total', 'sell_difference', 'pay_total', 'payed_total', 'pay_difference');
+        foreach ($field as $key) {
+            $total['current'][$key] = $this->order_obj->table($this->order_obj->field($key)->where($map)->page($page->getCurrent(), $page->getPer())->buildSql())->alias('tp_result')->sum($key);
+            $total['all'][$key] = $this->order_obj->field($key)->where($map)->sum($key);
+        }
+        $total['current']['per_total'] = calc_diff($total['current']['sell_total'] - $total['current']['pay_total']);
+        $total['current']['pered_total'] = calc_diff($total['current']['selled_total'] - $total['current']['payed_total']);
+        $total['current']['per_diff'] = calc_percent($total['current']['per_total'], $total['current']['sell_total']);
+        $total['all']['per_total'] = calc_diff($total['all']['sell_total'] - $total['all']['pay_total']);
+        $total['all']['pered_total'] = calc_diff($total['all']['selled_total'] - $total['all']['payed_total']);
+        $total['all']['per_diff'] = calc_percent($total['all']['per_total'], $total['all']['sell_total']);
+        $this->assign('page', $page->getCurrent());
+        $this->assign('total', $total);
+        $this->display();
+    }
     
     private function param($col) {
         return M('ord_para')->where("`para_column`='{$col}'")->select();

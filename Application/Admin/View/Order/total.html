@@ -1,0 +1,46 @@
+<h2 class="contentTitle">订单收支汇总</h2>
+<div class="pageContent">
+    <div class="pageFormContent nowrap" layoutH="97">
+        <div class="accordion">
+            <div class="accordionHeader">
+                <h2>本页汇总（第{$page}页）</h2>
+            </div>
+            <div class="accordionContent" style="height:220px">
+                <table class="list">
+                    <tr class="row"><td>应收</td><td>{$total.current.sell_total}</td></tr>
+                    <tr class="row"><td>实收</td><td>{$total.current.selled_total}</td></tr>
+                    <tr class="row"><td>未收</td><td>{$total.current.sell_difference}</td></tr>
+                    <tr class="row"><td>应付</td><td>{$total.current.pay_total}</td></tr>
+                    <tr class="row"><td>实付</td><td>{$total.current.payed_total}</td></tr>
+                    <tr class="row"><td>未付</td><td>{$total.current.pay_difference}</td></tr>
+                    <tr class="row"><td>应收利润</td><td>{$total.current.per_total}</td></tr>
+                    <tr class="row"><td>实收利润</td><td>{$total.current.pered_total}</td></tr>
+                    <tr class="row"><td>利润率</td><td>{$total.current.per_diff}</td></tr>
+                </table>
+            </div>
+            <div class="accordionHeader">
+                <h2>所有汇总</h2>
+            </div>
+            <div class="accordionContent">
+                <table class="list">
+                    <tr class="row"><td>应收</td><td>{$total.all.sell_total}</td></tr>
+                    <tr class="row"><td>实收</td><td>{$total.all.selled_total}</td></tr>
+                    <tr class="row"><td>未收</td><td>{$total.all.sell_difference}</td></tr>
+                    <tr class="row"><td>应付</td><td>{$total.all.pay_total}</td></tr>
+                    <tr class="row"><td>实付</td><td>{$total.all.payed_total}</td></tr>
+                    <tr class="row"><td>未付</td><td>{$total.all.pay_difference}</td></tr>
+                    <tr class="row"><td>应收利润</td><td>{$total.all.per_total}</td></tr>
+                    <tr class="row"><td>实收利润</td><td>{$total.all.pered_total}</td></tr>
+                    <tr class="row"><td>利润率</td><td>{$total.all.per_diff}</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+	<div class="formBar">
+        <ul>
+            <li>
+                <div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div>
+            </li>
+        </ul>
+    </div>
+</div>

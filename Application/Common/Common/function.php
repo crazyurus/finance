@@ -153,3 +153,11 @@ function getOpers() {
     }
     return $oper;
 }
+
+function calc_diff($val1, $val2) {
+    return sprintf('%.2f', $val1 - $val2);
+}
+
+function calc_percent($diff, $val) {
+    return percent($diff/$val);
+}

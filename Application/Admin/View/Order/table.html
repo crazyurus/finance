@@ -19,6 +19,7 @@
         <li><a class="delete" href="{:U('admin/order/delete')}?id={cid}" target="ajaxTodo" title="确定要删除选中的订单吗?" warn="请先选择订单！"><span>删除</span></a></li>
         <li class="line">line</li>
         <li><a class="icon" href="{:U('admin/order/detail')}?id={cid}" target="dialog" mask="true" width="720" height="420" title="订单详细信息" warn="请选择订单！"><span>详细信息</span></a></li>
+        <li><a class="icon" href="{:U('admin/order/total')}?page={$currentPage}" target="dialog" mask="true" width="720" height="410" title="订单收支汇总"><span>收支汇总</span></a></li>
         <!--
         <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>-->
     </ul>
@@ -61,9 +62,9 @@
                 <td>{$item.pay_total}</td>
                 <td>{$item.payed_total}</td>
                 <td>{$item.pay_difference}</td>
-                <td><php>$diff=$item['sell_total']-$item['pay_total'];printf('%.2f',$diff);</php></td>
-                <td><php>printf('%.2f',$item['selled_total']-$item['payed_total'])</php></td>
-                <td><php>echo percent($diff/$item['sell_total']);</php></td>
+                <td><php>$diff=calc_diff($item['sell_total'],$item['pay_total']);</php>{$diff}</td>
+                <td>{$item.selled_total|calc_diff=$item['payed_total']}</td>
+                <td>{$diff|calc_percent=$item['sell_total']}</td>
                 <td>{$item.insurance_stat|find_param_no}</td>
                 <td>{$item.settle_stat|find_param_no}</td>
             </tr>
