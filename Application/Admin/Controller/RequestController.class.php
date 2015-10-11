@@ -51,8 +51,9 @@ class RequestController extends AdminController {
             if($_POST['type'] == 'pay') {
                 $now = time();
                 $_POST['check_stat'] = self::PASS;
-                $oper_no = $this->fin_obj->field('oper_no')->find($_POST['id'])['oper_no'];
-                $_POST['seq_no'] = $this->seq($now, $oper_no);
+                $info = $this->fin_obj->field('oper_no, check_stat')->find($_POST['id']);
+                if($info['check_stat'] == self::PASS) return;
+                $_POST['seq_no'] = $this->seq($now, $info['oper_no']);
                 unset($_POST['type']);
                 $this->fin_obj->create($_POST);
                 $this->fin_obj->save();
