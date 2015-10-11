@@ -48,6 +48,8 @@ class OrderController extends AdminController {
             if($result == false) $this->errors('无效的操作，请联系管理员！');
             $_POST['sell_difference'] = $_POST['sell_total'] - $result['selled_total'];
             $_POST['pay_difference'] = $_POST['pay_total'] - $result['payed_total'];
+            if(session('user_dept') == 10002) $_POST['fin_modify_date'] = date('Y-m-d H:i:s',time());
+            if(session('user_id') == $result['oper_no']) $_POST['sell_modify_date'] = date('Y-m-d H:i:s',time());
             $this->order_obj->create($_POST);
             $this->order_obj->save();
             $this->success('修改订单成功！', 1, 200, 'order');
