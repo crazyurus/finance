@@ -11,7 +11,7 @@
                 <label>账户：</label>
                 <select name="acct_id" class="required combox">
                     <volist name="select" id="item">
-                        <option value="{$item.acct_id}"<?php if($item['acct_id']==$data['acct_id']) echo ' selected'; ?>>{$item.acct_name}</option>
+                        <option value="{$item.acct_id}"<?php if ($item['acct_id']==$data['acct_id']) echo ' selected'; ?>>{$item.acct_name}</option>
                     </volist>
                 </select>
             </p>

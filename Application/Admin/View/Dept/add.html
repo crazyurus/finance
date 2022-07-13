@@ -5,7 +5,7 @@
             <input type="hidden" name="type" value="{$btnText}" />
             <dl>
                 <dt>部门编号：</dt>
-                <dd><input type="text" name="dept_no" class="number required input" value="{$data.dept_no}" minlength="5" maxlength="5" <?php if($btnText=='修改') echo 'readonly'; ?> /></dd>
+                <dd><input type="text" name="dept_no" class="number required input" value="{$data.dept_no}" minlength="5" maxlength="5" <?php if ($btnText=='修改') echo 'readonly'; ?> /></dd>
             </dl>
             <dl>
                 <dt>部门名称：</dt>
@@ -27,8 +27,8 @@
                 <dt>部门状态：</dt>
                 <dd>
                     <select name="dept_stat" class="required combox">
-                        <option value="1"<?php if($data['dept_stat']==1) echo ' selected'; ?>>存在</option>
-                        <option value="0"<?php if(isset($data['dept_stat'])&&$data['dept_stat']==0) echo ' selected'; ?>>撤销</option>
+                        <option value="1"<?php if ($data['dept_stat']==1) echo ' selected'; ?>>存在</option>
+                        <option value="0"<?php if (isset($data['dept_stat'])&&$data['dept_stat']==0) echo ' selected'; ?>>撤销</option>
                     </select>
                 </dd>
             </dl>

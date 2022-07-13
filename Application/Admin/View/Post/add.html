@@ -5,7 +5,7 @@
             <input type="hidden" name="type" value="{$btnText}" />
             <dl>
                 <dt>岗位编号：</dt>
-                <dd><input type="text" name="post_no" class="number required input" value="{$data.post_no}" minlength="5" maxlength="5" <?php if($btnText=='修改') echo 'readonly'; ?> /></dd>
+                <dd><input type="text" name="post_no" class="number required input" value="{$data.post_no}" minlength="5" maxlength="5" <?php if ($btnText=='修改') echo 'readonly'; ?> /></dd>
             </dl>
             <dl>
                 <dt>岗位名称：</dt>
@@ -19,8 +19,8 @@
                 <dt>岗位状态：</dt>
                 <dd>
                     <select name="post_stat" class="required combox">
-                        <option value="1"<?php if($data['post_stat']==1) echo ' selected'; ?>>存在</option>
-                        <option value="0"<?php if(isset($data['post_stat'])&&$data['post_stat']==0) echo ' selected'; ?>>撤销</option>
+                        <option value="1"<?php if ($data['post_stat']==1) echo ' selected'; ?>>存在</option>
+                        <option value="0"<?php if (isset($data['post_stat'])&&$data['post_stat']==0) echo ' selected'; ?>>撤销</option>
                     </select>
                 </dd>
             </dl>
@@ -33,7 +33,7 @@
                 <eq name="btnText" value="添加">
                     <dd><label><input type="checkbox" name="post_right[]" value="1000" checked />&nbsp;订单管理</label><label><input type="checkbox" name="post_right[]" value="6000"  />&nbsp;销售管理</label><label><input type="checkbox" name="post_right[]" value="2000" />&nbsp;员工管理</label><label><input type="checkbox" name="post_right[]" value="3000" />&nbsp;财务管理</label><label><input type="checkbox" name="post_right[]" value="4000" checked />&nbsp;个人信息</label><label><input type="checkbox" name="post_right[]" value="5000" />&nbsp;系统设置</label></dd>
                     <else />
-                    <dd><label><input type="checkbox" name="post_right[]" value="1000"<?php if(in_array('1000',$data['post_right'])) echo ' checked'; ?> />&nbsp;订单管理</label><label><input type="checkbox" name="post_right[]" value="6000"<?php if(in_array('6000',$data['post_right'])) echo ' checked'; ?> />&nbsp;销售管理</label><label><input type="checkbox" name="post_right[]" value="2000"<?php if(in_array('2000',$data['post_right'])) echo ' checked'; ?> />&nbsp;员工管理</label><label><input type="checkbox" name="post_right[]" value="3000"<?php if(in_array('3000',$data['post_right'])) echo ' checked'; ?> />&nbsp;财务管理</label><label><input type="checkbox" name="post_right[]" value="4000"<?php if(in_array('4000',$data['post_right'])) echo ' checked'; ?> />&nbsp;个人信息</label><label><input type="checkbox" name="post_right[]" value="5000"<?php if(in_array('5000',$data['post_right'])) echo ' checked'; ?> />&nbsp;系统设置</label></dd>
+                    <dd><label><input type="checkbox" name="post_right[]" value="1000"<?php if (in_array('1000',$data['post_right'])) echo ' checked'; ?> />&nbsp;订单管理</label><label><input type="checkbox" name="post_right[]" value="6000"<?php if (in_array('6000',$data['post_right'])) echo ' checked'; ?> />&nbsp;销售管理</label><label><input type="checkbox" name="post_right[]" value="2000"<?php if (in_array('2000',$data['post_right'])) echo ' checked'; ?> />&nbsp;员工管理</label><label><input type="checkbox" name="post_right[]" value="3000"<?php if (in_array('3000',$data['post_right'])) echo ' checked'; ?> />&nbsp;财务管理</label><label><input type="checkbox" name="post_right[]" value="4000"<?php if (in_array('4000',$data['post_right'])) echo ' checked'; ?> />&nbsp;个人信息</label><label><input type="checkbox" name="post_right[]" value="5000"<?php if (in_array('5000',$data['post_right'])) echo ' checked'; ?> />&nbsp;系统设置</label></dd>
                 </eq>
             </dl>
             <div class="divider"></div>

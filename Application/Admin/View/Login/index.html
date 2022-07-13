@@ -71,10 +71,10 @@
                 var no_obj = $("input[name=oper_no]").val();
                 var pass_obj = $("input[name=oper_pass]").val();
                 var verify_obj = $("input[name=oper_verify]").val();
-                if (no_obj == "") msg = "请输入员工号！";
-                else if (pass_obj == "") msg = "请输入密码！";
-                else if (no_obj.length != 5) msg = "员工号格式不正确！";
-                else if (verify_obj == "") msg = "请输入验证码！";
+                if (no_obj == "") msg = "请输入员工号";
+                else if (pass_obj == "") msg = "请输入密码";
+                else if (no_obj.length != 5) msg = "员工号格式不正确";
+                else if (verify_obj == "") msg = "请输入验证码";
                 else {
                     $.ajax({
                         type: "POST",

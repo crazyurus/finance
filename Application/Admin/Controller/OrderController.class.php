@@ -10,7 +10,7 @@ class OrderController extends AdminController {
     }
     
     public function index() {
-        if(S('order_srh')) S('order_srh', null);
+        if (S('order_srh')) S('order_srh', null);
         $type = I('path.2')=='' ? 'home' : I('path.2');
         $this->method($type);
         $this->display('index');
@@ -37,28 +37,28 @@ class OrderController extends AdminController {
     
     public function delete($id) {
         $this->order_obj->delete($id);
-        $this->success('删除订单成功！', 0, 200, 'fin');
+        $this->success('删除订单成功', 0, 200, 'fin');
     }
     
     public function change() {
         $_POST['sell_total'] = $_POST['person_no']*$_POST['sell_unit']+$_POST['sell_other'];
         $_POST['pay_total'] = $_POST['person_no']*($_POST['pay_unit']+$_POST['insurance_pay'])+$_POST['pay_other'];
-        if(isset($_POST['ord_id'])) {
+        if (isset($_POST['ord_id'])) {
             $result = $this->order_obj->find($_POST['ord_id']);
-            if($result == false) $this->errors('无效的操作，请联系管理员！');
+            if ($result == false) $this->errors('无效的操作，请联系管理员');
             $_POST['sell_difference'] = $_POST['sell_total'] - $result['selled_total'];
             $_POST['pay_difference'] = $_POST['pay_total'] - $result['payed_total'];
-            if(session('user_dept') == 10002) $_POST['fin_modify_date'] = date('Y-m-d H:i:s',time());
-            if(session('user_id') == $result['oper_no']) $_POST['sell_modify_date'] = date('Y-m-d H:i:s',time());
+            if (session('user_dept') == 10002) $_POST['fin_modify_date'] = date('Y-m-d H:i:s',time());
+            if (session('user_id') == $result['oper_no']) $_POST['sell_modify_date'] = date('Y-m-d H:i:s',time());
             $this->order_obj->create($_POST);
             $this->order_obj->save();
-            $this->success('修改订单成功！', 1, 200, 'order');
+            $this->success('修改订单成功', 1, 200, 'order');
         }
         else {
             $now = time();
             $sys_obj = M('sys_index');
             $sys_info = $sys_obj->where("`sys_table_name`='ut_ord_info'")->find();
-            if($sys_info['sys_date']!=date('Y-m-d',$now)) $sys_obj->where("`sys_table_name`='ut_ord_info'")->data(array('sys_count'=>1,'sys_date'=>date('Y-m-d',$now)))->save();
+            if ($sys_info['sys_date']!=date('Y-m-d',$now)) $sys_obj->where("`sys_table_name`='ut_ord_info'")->data(array('sys_count'=>1,'sys_date'=>date('Y-m-d',$now)))->save();
             else $sys_obj->where("`sys_table_name`='ut_ord_info'")->setInc('sys_count',1);
             $index = $sys_obj->where("`sys_table_name`='ut_ord_info'")->find();
             $_POST['ord_id'] = trans_oper_no(session('user_dept')).trans_oper_no(session('user_id')).date('Ymd',time()).trans_oper_no($index['sys_count']);
@@ -71,7 +71,7 @@ class OrderController extends AdminController {
             $_POST['pay_difference'] = $_POST['pay_total'];
             $this->order_obj->create($_POST);
             $this->order_obj->add();
-            $this->success('添加订单成功！<br/>订单ID为：'.$_POST['ord_id'], 1, 200, 'order');
+            $this->success('添加订单成功<br/>订单ID为：'.$_POST['ord_id'], 1, 200, 'order');
         }
     }
     
@@ -90,7 +90,7 @@ class OrderController extends AdminController {
     public function remove() {
         $this->order_obj->create($_POST);
         $this->order_obj->save();
-        $this->success('移交订单成功！', 1, 200, 'order');
+        $this->success('移交订单成功', 1, 200, 'order');
     }
 
     public function total() {
@@ -143,41 +143,41 @@ class OrderController extends AdminController {
     }
     
     private function query(&$map) {
-        if(isset($_POST['loop_dept_dept_no'])) {
+        if (isset($_POST['loop_dept_dept_no'])) {
             $_POST['srh']['dept'] = $_POST['loop_dept_dept_no'];
             unset($_POST['loop_dept_dept_no']);
             unset($_POST['loop_dept_dept_name']);
         }
-        if(!isset($_POST['srh'])&&S('order_srh')) $map = S('order_srh');
-        elseif(isset($_POST['srh'])) {
+        if (!isset($_POST['srh'])&&S('order_srh')) $map = S('order_srh');
+        elseif (isset($_POST['srh'])) {
             // 订单创建日期
-            if($_POST['srh']['date_start']!==''&&$_POST['srh']['date_end']!=='') $map['ord_date'] = $this->between($_POST['srh']['date_start'], $_POST['srh']['date_end'].' 23:59:59');
+            if ($_POST['srh']['date_start']!==''&&$_POST['srh']['date_end']!=='') $map['ord_date'] = $this->between($_POST['srh']['date_start'], $_POST['srh']['date_end'].' 23:59:59');
             // 所属部门
-            if(!empty($_POST['srh']['dept'])) {
+            if (!empty($_POST['srh']['dept'])) {
 				$dept_no = $_POST['srh']['dept'];
 				$vector = array($dept_no);
 				$data = M('hr_depts')->where('`dept_stat`=1')->select();
 				foreach($data as $key=>$value) {
-					if(in_array($value['higer_dept'], $vector)) $vector[] = $value['dept_no'];
+					if (in_array($value['higer_dept'], $vector)) $vector[] = $value['dept_no'];
 				}
 				$map['dept_no'] = array('in', $vector);
 			}
             // 员工
-            if(isset($_POST['srh']['oper'])&&$_POST['srh']['oper']!=='') $map['oper_no'] = $_POST['srh']['oper'];
+            if (isset($_POST['srh']['oper'])&&$_POST['srh']['oper']!=='') $map['oper_no'] = $_POST['srh']['oper'];
             // 订单号
-            if(!empty($_POST['srh']['order_id'])) $map['ord_id'] = array('like', '%'.$_POST['srh']['order_id'].'%');
+            if (!empty($_POST['srh']['order_id'])) $map['ord_id'] = array('like', '%'.$_POST['srh']['order_id'].'%');
             // 供应商
-            if(!empty($_POST['srh']['provider'])) $map['provider_name'] = array('like', '%'.$_POST['srh']['provider'].'%');
+            if (!empty($_POST['srh']['provider'])) $map['provider_name'] = array('like', '%'.$_POST['srh']['provider'].'%');
             // 订单线路出境
-            if(isset($_POST['srh']['area'])&&!empty($_POST['srh']['area'][0])) $map['order_area'] = array('in', $_POST['srh']['area']);
+            if (isset($_POST['srh']['area'])&&!empty($_POST['srh']['area'][0])) $map['order_area'] = array('in', $_POST['srh']['area']);
             // 客户出行时间
-            if($_POST['srh']['custom_start']!==''&&$_POST['srh']['custom_end']!=='') $map['depart_date'] = $this->between($_POST['srh']['custom_start'], $_POST['srh']['custom_end']);
+            if ($_POST['srh']['custom_start']!==''&&$_POST['srh']['custom_end']!=='') $map['depart_date'] = $this->between($_POST['srh']['custom_start'], $_POST['srh']['custom_end']);
             // 客户代表名称
-            if(!empty($_POST['srh']['standard'])) $map['custom_name'] = array('like', '%'.$_POST['srh']['standard'].'%');
+            if (!empty($_POST['srh']['standard'])) $map['custom_name'] = array('like', '%'.$_POST['srh']['standard'].'%');
             // 保险购买状态
-            if(isset($_POST['srh']['stat'])&&!empty($_POST['srh']['stat'][0])) $map['insurance_stat'] = array('in', $_POST['srh']['stat']);
+            if (isset($_POST['srh']['stat'])&&!empty($_POST['srh']['stat'][0])) $map['insurance_stat'] = array('in', $_POST['srh']['stat']);
             // 订单结算状态
-            if(isset($_POST['srh']['settle'])&&!empty($_POST['srh']['settle'][0])) $map['settle_stat'] = array('in', $_POST['srh']['settle']);
+            if (isset($_POST['srh']['settle'])&&!empty($_POST['srh']['settle'][0])) $map['settle_stat'] = array('in', $_POST['srh']['settle']);
             S('order_srh', $map);
         }
     }

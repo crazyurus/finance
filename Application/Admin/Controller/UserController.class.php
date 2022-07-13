@@ -10,13 +10,13 @@ class UserController extends AdminController {
     }
     
     public function index() {
-        if(!hasRight(2000)) exit;
+        if (!hasRight(2000)) exit;
         $this->page($this->oper_obj,array(),'oper_stat desc');
         $this->display();
     }
     
     public function add() {
-        if(!hasRight(2000)) exit;
+        if (!hasRight(2000)) exit;
         $data['oper_stat'] = 1;
         $data['oper_no'] = '';
         $this->assign('data', $data);
@@ -28,7 +28,7 @@ class UserController extends AdminController {
     private function query() {
         $id = isset($_GET['id']) ? $_GET['id'] : intval(session('user_id'));
         $result = $this->oper_obj->find($id);
-        if($result == false) $this->timeout();
+        if ($result == false) $this->timeout();
         $this->assign('type', isset($_GET['id']));
         $this->assign('data', $result);
     }
@@ -45,14 +45,14 @@ class UserController extends AdminController {
     }
     
     public function delete() {
-        if(!hasRight(2000)) exit;
+        if (!hasRight(2000)) exit;
         $id = intval(I('get.id'));
         $this->oper_obj->delete($id);
-        $this->success('删除成功！');
+        $this->success('删除成功');
     }
     
     public function leave() {
-        if(!hasRight(2000)) exit;
+        if (!hasRight(2000)) exit;
         $id = intval(I('get.id'));
         $result = $this->oper_obj->find($id);
         $data['oper_no'] = $id;
@@ -60,60 +60,60 @@ class UserController extends AdminController {
         $state = $result['oper_stat'] == 1 ? '离职' : '在职';
         $this->oper_obj->token(false)->create($data);
         $this->oper_obj->save();
-        $this->success($result['oper_name'].'已修改为<b>'.$state.'</b>状态！');
+        $this->success($result['oper_name'].'已修改为<b>'.$state.'</b>状态');
     }
     
     public function setInfo() {
         $type = $_POST['type'];
         unset($_POST['type']);
-        if(isset($_POST['oper_no'])) {
-            if(!hasRight(2000)) $this->errors('你没有权限修改信息！');
+        if (isset($_POST['oper_no'])) {
+            if (!hasRight(2000)) $this->errors('你没有权限修改信息');
             $_POST['oper_dept_no'] = $_POST['loop_dept_dept_no'];
             $_POST['oper_post_no'] = $_POST['loop_post_post_no'];
             unset($_POST['loop_dept_dept_no']);
             unset($_POST['loop_post_post_no']);
             unset($_POST['loop_dept_dept_name']);
             unset($_POST['loop_post_post_name']);
-            if(!empty($_POST['oper_pass'])) $_POST['oper_pass'] = md5($_POST['oper_pass'].C('salt'));
-            if($type == '添加') {
-                if(empty($_POST['oper_pass'])) $_POST['oper_pass'] = md5('123456'.C('salt'));
+            if (!empty($_POST['oper_pass'])) $_POST['oper_pass'] = md5($_POST['oper_pass'].C('salt'));
+            if ($type == '添加') {
+                if (empty($_POST['oper_pass'])) $_POST['oper_pass'] = md5('123456'.C('salt'));
                 try {
                     $this->oper_obj->create($_POST);
                     $this->oper_obj->add();
                 } catch(\Exception $e) {
-                    if($e->getCode() == 23000) {
+                    if ($e->getCode() == 23000) {
                         $this->errors('添加失败，该员工号已存在');
                     }
-                    else $this->errors('添加员工信息失败！');
+                    else $this->errors('添加员工信息失败');
                 }
             }
             else {
-                if(empty($_POST['oper_pass'])) unset($_POST['oper_pass']);
+                if (empty($_POST['oper_pass'])) unset($_POST['oper_pass']);
                 $this->oper_obj->create($_POST);
                 $this->oper_obj->save();
             }
         }
         else $this->oper_obj->where('oper_no='.session('user_id'))->data($_POST)->save();
-        $this->success('操作成功！',1,200,'hr');
+        $this->success('操作成功',1,200,'hr');
     }
     
     public function setPwd() {
         $pwd_c = I('post.pwd_c');
         $pwd_1 = I('post.pwd_1');
         $pwd_2 = I('post.pwd_2');
-        if(empty($pwd_c)||empty($pwd_1)||empty($pwd_2)) {
-            $this->errors('提交的信息不完整！');
+        if (empty($pwd_c)||empty($pwd_1)||empty($pwd_2)) {
+            $this->errors('提交的信息不完整');
         }
-        if($pwd_1 !== $pwd_2) {
-            $this->errors('两次输入的新密码不一致！');
+        if ($pwd_1 !== $pwd_2) {
+            $this->errors('两次输入的新密码不一致');
         }
         $result = $this->oper_obj->find(session('user_id'));
-        if($result == false) $this->timeout();
-        if(md5($pwd_c.C('salt')) !== $result['oper_pass']) {
-            $this->errors('原密码不正确！');        
+        if ($result == false) $this->timeout();
+        if (md5($pwd_c.C('salt')) !== $result['oper_pass']) {
+            $this->errors('原密码不正确');        
         }
         $this->oper_obj->where('oper_no='.session('user_id'))->setField('oper_pass', md5($pwd_1.C('salt')));
-        $this->success('密码修改成功！',1);
+        $this->success('密码修改成功',1);
     }
     
     public function password() {
@@ -128,7 +128,7 @@ class UserController extends AdminController {
         unset($_SESSION['user_right']);
         $result = array();
         $result['statusCode'] = 301;
-        $result['message'] = '注销成功！';
+        $result['message'] = '注销成功';
         $this->ajaxReturn($result);
     }
 }

@@ -10,7 +10,7 @@ function hasRight($num) {
 
 function comma() {
     $val = null;
-    if(($n = func_num_args()) > 0)
+    if (($n = func_num_args()) > 0)
         $val = func_get_arg($n - 1);
     return $val;
 }
@@ -18,7 +18,7 @@ function comma() {
 function msubstr($str, $length, $suffix='……') {
     $str = strip_tags($str);                                          
     $len = mb_strlen($str, 'utf-8');
-    if($length >= $len) return $str;
+    if ($length >= $len) return $str;
     else return mb_substr($str, 0, $length-1, 'utf-8').$suffix;
 }
 
@@ -63,7 +63,7 @@ function trans_oper_no($num) {
 }
 
 function find_public_func($num, $pre, $table, $no, $name) {
-    if(S($pre.'/flag')) return S($pre.'/'.$num);
+    if (S($pre.'/flag')) return S($pre.'/'.$num);
     else {
         $result = M($table)->field($no.','.$name)->select();
         foreach($result as $item) {
@@ -103,13 +103,13 @@ function trans_oper_tree($num, $pre) {
 
 function set_tree_info($arr, $pre, $id = 0, $str = '', $flag = false) {
     foreach($arr as $key => $value) {
-        if($value['higer_'.$pre] == $id) {
+        if ($value['higer_'.$pre] == $id) {
             $result = $flag ? $value[$pre.'_name'] : $str.$value[$pre.'_name'];
             S($pre.'/'.$value[$pre.'_no'], $result);
             set_tree_info($arr, $pre, $value[$pre.'_no'], $result, $flag);
         }
     }
-    if($id == 0) S($pre.'/flag', true);
+    if ($id == 0) S($pre.'/flag', true);
 }
 
 function find_tree_info($arr, $pre) {
@@ -118,7 +118,7 @@ function find_tree_info($arr, $pre) {
         $flag = true;
         S($pre.'/'.$value[$pre.'_no'], $value[$pre.'_name']);
     }
-    if($flag) S($pre.'/flag', true);
+    if ($flag) S($pre.'/flag', true);
 }
 
 function find_acct_name($num) {
@@ -126,7 +126,7 @@ function find_acct_name($num) {
 }
 
 function trans_dept_no($num) {
-    if(S('dept/flag')) return S('dept/'.$num);
+    if (S('dept/flag')) return S('dept/'.$num);
     else {
         find_tree_info(M('hr_depts')->select(), 'dept');
         return trans_dept_no($num);
@@ -134,7 +134,7 @@ function trans_dept_no($num) {
 }
 
 function trans_post_no($num) {
-    if(S('post/flag')) return S('post/'.$num);
+    if (S('post/flag')) return S('post/'.$num);
     else {
         find_tree_info(M('hr_posts')->select(), 'post');
         return trans_post_no($num);
@@ -148,7 +148,7 @@ function trans_date($str) {
 function getOpers() {
     $oper = M('hr_opers')->field('oper_no, oper_name, oper_stat')->order('oper_stat desc')->select();
     foreach ($oper as &$item) {
-        if($item['oper_stat'] == 0) $item['oper_name'] .= '-离职';
+        if ($item['oper_stat'] == 0) $item['oper_name'] .= '-离职';
         else $item['oper_name'] .= '-在职';
     }
     return $oper;

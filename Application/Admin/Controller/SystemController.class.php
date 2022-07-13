@@ -6,13 +6,13 @@ class SystemController extends AdminController {
     protected $state_obj;
     
     function _initialize() {
-        if(!hasRight(5000)) exit;
+        if (!hasRight(5000)) exit;
         $this->state_obj = M('sys_state');
     }
     
     public function index() {
         $result = $this->state_obj->find();
-        if($result == false) {
+        if ($result == false) {
             $this->alert('未找到系统设置数据，请重新安装此产品。');
         }
         $this->assign('data', $result);
@@ -20,10 +20,10 @@ class SystemController extends AdminController {
     }
     
     public function save() {
-        if($this->state_obj->where('1=1')->save($_POST) === false) {
+        if ($this->state_obj->where('1=1')->save($_POST) === false) {
             $this->errors('操作失败，请检查产品完整性。');
         };
-        $this->success('系统参数保存成功！');
+        $this->success('系统参数保存成功');
     }
     
     public function runtime() {
@@ -56,7 +56,7 @@ class SystemController extends AdminController {
 
     public function clean() {
         M()->execute('TRUNCATE TABLE `'.C('DB_PREFIX').'hr_log`');
-        $this->success('清空记录成功！');
+        $this->success('清空记录成功');
     }
     
     public function info() {

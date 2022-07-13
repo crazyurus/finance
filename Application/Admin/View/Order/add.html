@@ -21,7 +21,7 @@
                     <label>订单线路出境：</label>
                     <select name="order_area" class="required combox">
                         <volist name="area" id="item">
-                            <option value="{$item.para_id}"<?php if($item['para_id']==$data['order_area']) echo ' selected'; ?>>{$item.para_name}</option>
+                            <option value="{$item.para_id}"<?php if ($item['para_id']==$data['order_area']) echo ' selected'; ?>>{$item.para_name}</option>
                         </volist>
                     </select>
                 </p>
@@ -63,7 +63,7 @@
                     <label>保险购买途径：</label>
                     <select name="insurance_way" class="required combox">
                         <volist name="way" id="item">
-                            <option value="{$item.para_id}"<?php if($item['para_id']==$data['insurance_way']) echo ' selected'; ?>>{$item.para_name}</option>
+                            <option value="{$item.para_id}"<?php if ($item['para_id']==$data['insurance_way']) echo ' selected'; ?>>{$item.para_name}</option>
                         </volist>
                     </select>
                 </p>
@@ -83,7 +83,7 @@
                         <label>保险购买状态：</label>
                         <select name="insurance_stat" class="required combox">
                             <volist name="stat" id="item">
-                                <option value="{$item.para_id}"<?php if($item['para_id']==$data['insurance_stat']) echo ' selected'; ?>>{$item.para_name}</option>
+                                <option value="{$item.para_id}"<?php if ($item['para_id']==$data['insurance_stat']) echo ' selected'; ?>>{$item.para_name}</option>
                             </volist>
                         </select>
                     </p>
@@ -91,7 +91,7 @@
                         <label>订单结算状态：</label>
                         <select name="settle_stat" class="required combox">
                             <volist name="settle" id="item">
-                                <option value="{$item.para_id}"<?php if($item['para_id']==$data['settle_stat']) echo ' selected'; ?>>{$item.para_name}</option>
+                                <option value="{$item.para_id}"<?php if ($item['para_id']==$data['settle_stat']) echo ' selected'; ?>>{$item.para_name}</option>
                             </volist>
                         </select>
                     </p>

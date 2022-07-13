@@ -8,11 +8,11 @@
     <div class="panelBar">
         <ul class="toolBar">
             <li><a class="add" href="{:U('admin/user/add')}" target="navTab" rel="hrd" title="添加员工"><span>添加</span></a></li>
-            <li><a class="delete" href="{:U('admin/user/delete')}?id={cid}" target="ajaxTodo" title="确定要删除选中的员工信息吗?" warn="请先选择员工！"><span>删除</span></a></li>
-            <li><a class="edit" href="{:U('admin/user/modify')}?id={cid}" target="navTab" rel="hrd" title="修改员工信息" warn="请先选择员工！"><span>修改</span></a></li>
+            <li><a class="delete" href="{:U('admin/user/delete')}?id={cid}" target="ajaxTodo" title="确定要删除选中的员工信息吗?" warn="请先选择员工"><span>删除</span></a></li>
+            <li><a class="edit" href="{:U('admin/user/modify')}?id={cid}" target="navTab" rel="hrd" title="修改员工信息" warn="请先选择员工"><span>修改</span></a></li>
             <li class="line">line</li>
-            <li><a class="icon" href="{:U('admin/user/leave')}?id={cid}" target="ajaxTodo" warn="请先选择员工！"><span>更改状态</span></a></li>
-            <li><a class="icon" href="{:U('admin/user/info')}?id={cid}" target="navTab" rel="hrd" title="员工详细信息" warn="请先选择员工！"><span>详细信息</span></a></li>
+            <li><a class="icon" href="{:U('admin/user/leave')}?id={cid}" target="ajaxTodo" warn="请先选择员工"><span>更改状态</span></a></li>
+            <li><a class="icon" href="{:U('admin/user/info')}?id={cid}" target="navTab" rel="hrd" title="员工详细信息" warn="请先选择员工"><span>详细信息</span></a></li>
             <!--<li class="line">line</li>
             <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>-->
         </ul>
@@ -47,10 +47,10 @@
         <div class="pages">
             <span>显示</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-                <option value="10"<?php if($numPerPage==10) echo ' selected'; ?>>10</option>
-                <option value="20"<?php if($numPerPage==20) echo ' selected'; ?>>20</option>
-                <option value="50"<?php if($numPerPage==50) echo ' selected'; ?>>50</option>
-                <option value="100"<?php if($numPerPage==100) echo ' selected'; ?>>100</option>
+                <option value="10"<?php if ($numPerPage==10) echo ' selected'; ?>>10</option>
+                <option value="20"<?php if ($numPerPage==20) echo ' selected'; ?>>20</option>
+                <option value="50"<?php if ($numPerPage==50) echo ' selected'; ?>>50</option>
+                <option value="100"<?php if ($numPerPage==100) echo ' selected'; ?>>100</option>
             </select>
             <span>条，共 {$totalCount} 条</span>
         </div>

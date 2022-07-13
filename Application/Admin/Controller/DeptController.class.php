@@ -22,7 +22,7 @@ class DeptController extends AdminController {
     public function modify() {
         $id = intval(I('get.id'));
         $result = $this->dept_obj->find($id);
-        if($result == false) $this->timeout();
+        if ($result == false) $this->timeout();
         $this->assign('btnText','修改');
         $this->assign('data',$result);
         $this->display('add');
@@ -31,12 +31,12 @@ class DeptController extends AdminController {
     public function delete() {
         $id = intval(I('get.id'));
         $this->dept_obj->delete($id);
-        $this->success('删除成功！');
+        $this->success('删除成功');
     }
     
     public function change() {
         $temp = $this->dept_obj->where('`dept_no`='.$_POST['dept_no'])->find();
-        if($temp != false && $temp['dept_no'] != $_POST['dept_no']) $this->errors('部门号已存在！');
+        if ($temp != false && $temp['dept_no'] != $_POST['dept_no']) $this->errors('部门号已存在');
         $type = $_POST['type'];
         $_POST['higer_dept'] = empty($_POST['loop_dept_dept_name']) ? 0 :$_POST['loop_dept_dept_no'];
         unset($_POST['loop_dept_dept_no']);
@@ -44,13 +44,13 @@ class DeptController extends AdminController {
         unset($_POST['type']);
         unset($_SESSION['dept']['flag']);
         $this->dept_obj->create($_POST);
-        if($type == '添加') {
+        if ($type == '添加') {
             $this->dept_obj->add();
-            $this->success('添加部门成功！',1,200,'hr');
+            $this->success('添加部门成功',1,200,'hr');
         }
         else {
             $this->dept_obj->save();
-            $this->success('修改部门信息成功！',1,200,'hr');
+            $this->success('修改部门信息成功',1,200,'hr');
         }
     }
     

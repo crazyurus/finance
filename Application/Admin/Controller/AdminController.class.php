@@ -5,7 +5,7 @@ class AdminController extends CommonController {
    
     function __construct() {
         parent::__construct();
-        if(!isLogin()) redirect(U('admin/login/index'));
+        if (!isLogin()) redirect(U('admin/login/index'));
     }
     
     protected function alert($msg = '', $type = 'warn', $close = 1) {
@@ -19,8 +19,8 @@ class AdminController extends CommonController {
     }
     
     protected function page($model, $map = array(), $sort = '') {
-        if(!empty($_REQUEST['orderField'])) {
-            if(!empty($sort)) $sort .= ',';
+        if (!empty($_REQUEST['orderField'])) {
+            if (!empty($sort)) $sort .= ',';
             $sort .= $_REQUEST['orderField'].($_REQUEST['orderDirection'] == 'asc' ? ' asc' : ' desc');
         }
         $count = $model->where($map)->count($model->getPk());
@@ -28,7 +28,7 @@ class AdminController extends CommonController {
         $per = $page->getPer();
         $current = $page->getCurrent();
         if ($count > 0) {
-            if(!$page->isCorrect()) $this->alert('无效的页码范围！','warn',0);
+            if (!$page->isCorrect()) $this->alert('无效的页码范围','warn',0);
             $voList = $model->where($map)->order($sort)->limit($per)->page($current)->select();
             $this->assign('data', $voList);
         }
@@ -43,8 +43,8 @@ class AdminController extends CommonController {
         $result = '';
         $flag = false;
         foreach($arr as $key => $value) {
-            if($value['higer_'.$pre] == $id) {
-                if($flag == false&&$id != 0) $result .= '<ul>';
+            if ($value['higer_'.$pre] == $id) {
+                if ($flag == false&&$id != 0) $result .= '<ul>';
                 $extend = '';
                 $func = $chk ? '$.bringBack' : 'subjectBack';
                 $next = $this->tree($arr, $pre, $value[$pre.'_no'], $chk, $extend);
@@ -54,14 +54,14 @@ class AdminController extends CommonController {
                 $flag = true;
             }
         }
-        if($flag == true&&$id != 0) $result .= '</ul>';
+        if ($flag == true&&$id != 0) $result .= '</ul>';
         return $result;
     }
     
     protected function between($min, $max) {
-        if($min!==''&&$max!=='') {
-            if($min==='') return array('elt', $max);
-            elseif($max==='') return array('egt', $min);
+        if ($min!==''&&$max!=='') {
+            if ($min==='') return array('elt', $max);
+            elseif ($max==='') return array('egt', $min);
             else return array('between', array($min, $max));
         }
     }

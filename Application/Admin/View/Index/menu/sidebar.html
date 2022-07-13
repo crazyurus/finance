@@ -3,7 +3,7 @@
 </div>
 <div class="accordionContent">
     <ul class="tree treeFolder">
-        <?php if(hasRight(1000)) { ?>
+        <?php if (hasRight(1000)) { ?>
         <li>
             <a href="#" func-id="1000">我的订单</a>
             <ul>
@@ -11,7 +11,7 @@
                 <li><a href="{:U('admin/request/index')}" target="navTab" rel="fin" func-id="1002">非业务出入账请求</a></li>
             </ul>
         </li>
-		<?php } if(hasRight(6000)) { ?>
+		<?php } if (hasRight(6000)) { ?>
         <li>
             <a href="#" func-id="6000">销售管理</a>
             <ul>
@@ -19,7 +19,7 @@
                 <li><a href="{:U('admin/order/index')}/list" target="navTab" rel="order" func-id="6002">所有订单</a></li>
             </ul>
         </li>
-        <?php } if(hasRight(2000)) { ?>
+        <?php } if (hasRight(2000)) { ?>
         <li>
             <a href="#" func-id="2000">人事管理</a>
             <ul>
@@ -28,7 +28,7 @@
                 <li><a href="{:U('admin/user/index')}" target="navTab" rel="hr" func-id="2003">员工管理</a></li>
             </ul>
         </li>
-        <?php } if(hasRight(3000)) { ?>
+        <?php } if (hasRight(3000)) { ?>
         <li>
             <a href="#" func-id="3000">财务管理</a>
             <ul>
@@ -41,7 +41,7 @@
         <?php } ?>
     </ul>
 </div>
-<?php if(hasRight(4000)) { ?>
+<?php if (hasRight(4000)) { ?>
 <div class="accordionHeader">
     <h2><span>Folder</span>个人信息</h2>
 </div>
@@ -53,7 +53,7 @@
         <li><a href="{:U('admin/user/logout')}" target="ajaxTodo" func-id="4004">退出系统</a></li>
     </ul>
 </div>
-<?php } if(hasRight(5000)) { ?>
+<?php } if (hasRight(5000)) { ?>
 <div class="accordionHeader">
     <h2><span>Folder</span>系统设置</h2>
 </div>
