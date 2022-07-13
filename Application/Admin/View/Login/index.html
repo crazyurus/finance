@@ -29,11 +29,11 @@
                     <label>密码：</label>
                     <input type="password" name="oper_pass" style="width:133px" class="login_input" maxlength="16" />
                 </p>
-                <!--<p>
+                <p>
                     <label>验证码：</label>
                     <input type="text" name="oper_verify" size="4" class="code" maxlength="4" required=required />
                     <span><img id="verifyImg" src="{:U('admin/login/verify.gif')}?stamp{:time()}" title="单击图片可更换验证码" alt="验证码" width="75" height="24" style="cursor:pointer" /></span>
-                </p>-->
+                </p>
                 <div class="login_bar">
                     <input class="sub" type="button" value=" " />
                 </div>
@@ -70,10 +70,11 @@
                 var msg = "";
                 var no_obj = $("input[name=oper_no]").val();
                 var pass_obj = $("input[name=oper_pass]").val();
+                var verify_obj = $("input[name=oper_verify]").val();
                 if (no_obj == "") msg = "请输入员工号！";
                 else if (pass_obj == "") msg = "请输入密码！";
                 else if (no_obj.length != 5) msg = "员工号格式不正确！";
-                    //else if ($("input[name=oper_verify]").val() == "") msg = "请输入验证码！";
+                else if (verify_obj == "") msg = "请输入验证码！";
                 else {
                     $.ajax({
                         type: "POST",
@@ -82,7 +83,8 @@
                         url: "{:U('admin/login/check')}",
                         data: {
                             oper_no: no_obj,
-                            oper_pass: pass_obj
+                            oper_pass: pass_obj,
+                            oper_verify: verify_obj,
                         },
                         dataType: "json",
                         success: function (data) {
@@ -90,7 +92,7 @@
                         }
                     });
                 }
-                if (msg.trim() == "") location.assign("/finance");
+                if (msg.trim() == "") location.reload();
                 else {
                     $("input[name=oper_pass]").val("");
                     alert(msg);

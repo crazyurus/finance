@@ -16,13 +16,13 @@ class LoginController extends CommonController {
     public function check() {
         $no = I('post.oper_no');
         $pwd = I('post.oper_pass');
-        //$verify = md5(I('post.oper_verify'));
+        $verify = md5(I('post.oper_verify'));
         if(empty($no)||empty($pwd)) {
             $this->errors('提交的信息不完整！');
         }
-        //if($verify != $_SESSION['verify']) {
-        //    $this->errors('验证码不正确！');
-        //}
+        if($verify != $_SESSION['verify']) {
+           $this->errors('验证码不正确！');
+        }
         $result = M('hr_opers')->find($no);
         if($result == false) {
             $this->errors('提交的员工工号不存在！');
