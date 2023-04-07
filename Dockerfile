@@ -1,4 +1,7 @@
-FROM php:5.6-apache
+FROM php:7.4-apache
+
+RUN apt-get update -y && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev
+RUN docker-php-ext-install gd mysqli pdo pdo_mysql
 
 COPY . /var/www/html/
 

@@ -23,11 +23,11 @@
             <div class="loginForm">
                 <p>
                     <label>工号：</label>
-                    <input type="text" name="oper_no" style="width:133px" class="login_input" maxlength="5" />
+                    <input type="text" name="oper_no" style="width:133px" class="login_input" maxlength="5" value="10000" />
                 </p>
                 <p>
                     <label>密码：</label>
-                    <input type="password" name="oper_pass" style="width:133px" class="login_input" maxlength="16" />
+                    <input type="password" name="oper_pass" style="width:133px" class="login_input" maxlength="16" value="123456" />
                 </p>
                 <p>
                     <label>验证码：</label>
@@ -92,7 +92,7 @@
                         }
                     });
                 }
-                if (msg.trim() == "") location.reload();
+                if (msg.trim() == "") location.replace('/admin');
                 else {
                     $("input[name=oper_pass]").val("");
                     alert(msg);
